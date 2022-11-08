@@ -1,10 +1,72 @@
 {% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block title %}UWI Research Platform{% endblock %}
+{% block page %}UWI Research Platform{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+
+    <form class="row">
+        <div>
+            <div class="input-field col s9">
+                <i class="material-icons prefix">search</i>
+                
+                <textarea id="icon_prefix2" name="search"   class="materialize-textarea">{% if search %} {{search}} {% endif %}</textarea>
+                <label for="icon_prefix2">Search Publication...</label>
+            </div>
+            <div class="input-field s3">
+            <button class="btn waves-effect waves-light" type="submit">Search
+                <i class="material-icons right">search</i>
+            </button>
+            </div>
+        </div>
+    </form>
+
+    <main style="padding: 1em" class="row">
+        <section class="col s12 m8">
+            <h1 class="center">Publications</h1>
+            <section class="row" style="overflow-y: scroll; height:82vh">
+
+                {% for publication in publications %}
+                <ul class="collection hoverable">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">folder</i>
+                        <a href="/publication/{{publication.id}}"><span class="title">{{publication.name}}</span></a>
+                        <p>
+                            {% for author in authors  %}
+                            {% if author.id == publication.author %}
+
+                                Author: <a href="/author/{{author.id}}">{{author.fname}} {{author.lname}}</a> 
+
+                            {% endif %}
+                            {% endfor %}
+                            <br>
+                            Co-Authors:
+                            {% for coauthor in publication.coauthors %}
+                            <a href="/author/{{coauthor.id}}">{{coauthor.fname}} {{coauthor.lname}}</a>, 
+                            {% endfor %}
+                            <br> 
+                            {{publication.content}} 
+                        </p>
+                    </li>
+                </ul>
+                {% endfor %}
+
+            </section>
+        </section>
+        <section class="col s12 m4">
+            <section class="row" style="overflow-y: scroll; height:82vh">
+
+                <h1 class="center">Authors</h1>
+
+                <ul class="collection">
+                    {% for author in authors %}
+                    <a href="/author/{{author.id}}" class="collection-item">{{author.fname}} {{author.lname}}</a>
+                    {% endfor %}
+                </ul>
+
+            </section>
+        </section>
+    </main>
+      
 {% endblock %}

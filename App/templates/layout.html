@@ -12,15 +12,18 @@
     <title>{% block title %}{% endblock %}</title>
 
   </head>
-  <body>
+  <body class="grey lighten-4">
     <nav class="purple">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
+        <a href="#!" class="brand-logo left">{% block page %}{% endblock %}</a>
         <div class="nav-wrapper">
-            <ul id="nav-mobile" class="left">
+            <ul id="nav-mobile" class="right">
                 <li><a href="/">Home</a></li>
-                <li><a href="/users">Users Jinja</a></li>
-                <li><a href="/static/users">Users JS</a></li>
+                <li><a href="/authors">Authors Jinja</a></li>
+                <li><a href="/publications">Publications Jinja</a></li>
+                <li><a href="/static/authors">Authors JS</a></li>
+                <li><button class="btn"><a href="/login">Login</a></button></li>
+                <li><button class="btn"><a href="/register">Register</a></button></li>
             </ul>
         </div>
       </div>
@@ -41,6 +44,7 @@
     {% endwith %}
 
     <div class="container" id="content">{% block content %}{% endblock %}</div>
+    <p class="center">v0.5.2.1</p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
