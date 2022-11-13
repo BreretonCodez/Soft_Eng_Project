@@ -1,42 +1,29 @@
 from App.database import db
-# from .author import *
 from .author import *
 from .author_publication import *
-
-# AuthorPublication = db.Table(
-#     "authorpublication",
-#     db.Column("author_id", db.ForeignKey("author.id"), primary_key=True),
-#     db.Column("publication_id", db.ForeignKey("publication.id"), primary_key=True)
-# )
 
 class Publication(db.Model):
     __tablename__ = "publication"
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False, unique=True)
-    # authors = db.relationship("Author")
-    authors = db.relationship(Author, secondary=AuthorPublication, backref=db.backref('publication'))
-    coauthors = db.relationship(Author, secondary=CoAuthorPublication)
+    title = db.Column(db.String, nullable=False, unique=True)
+    author = db.Column(db.ForeignKey('author.id'))
+    coauthors = db.relationship('Author', secondary=PublicationTree)
+    content = db.Column(db.String, nullable=False)
+    citation = db.Column(db.String, nullable=False)
 
-    def __init__(self, title, authors, coauthors):
+    def __init__(self, title, author, content, citation):
         self.title = title
-        # self.authors.append(authors)
-        # [self.authors.append(author) for author in authors]
-        self.authors.extend(authors)
-
-        if coauthors:
-            self.coauthors.extend(coauthors)
+        self.author = author
+        self.content = content
+        self.citation = citation
     
     def toJSON(self):
         return{
-            "id": self.id,
-            "title": self.title, 
-            "authors": [author.toJSON() for author in self.authors],
-            "coauthors": [coauthor.toJSON() for coauthor in self.coauthors]
+            'id': self.id,
+            'title': self.title, 
+            'authors': self.author.toJSON(),
+            'coauthors': [coauthor.toJSON() for coauthor in self.coauthors],
+            'content': self.content,
+            'citation': self.citation,
         }
-
-    # def toJSON2(self):
-    #     return{
-    #         "id": self.id,
-    #         "title": self.title, 
-    #     }
 
