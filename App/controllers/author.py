@@ -6,7 +6,7 @@ def create_author(fname, lname, email, password):
     newAuthor = Author(fname=fname, lname=lname, email=email, password=password)
     db.session.add(newAuthor)
     db.session.commit()
-    return new_author
+    return newAuthor
 
 ''' Deletes an Author '''
 def delete_author(id):
