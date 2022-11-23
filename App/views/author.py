@@ -9,7 +9,7 @@ from App.controllers import (
 
 author_views = Blueprint('author_views', __name__, template_folder='../templates')
 
-@author_views.route('/signup', methods=["POST"])
+@author_views.route('/signup', methods=['GET','POST'])
 def create_user_route():
     data = request.get_json()
     if not data:
