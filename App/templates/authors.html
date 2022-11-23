@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}App Authors{% endblock %}
+{% block page %}App Authors{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>First Name</th><th>Last Name</th><th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for author in authors %}
+            <tr>
+                <td>{{author.id}}</td>
+                <td>{{author.fname}}</td>
+                <td>{{author.lname}}</td>
+                <td>{{author.email}}</td>
+            </tr>
+          {% endfor %}
+        <tbody>
+      </table>
+    </div>
+{% endblock %}

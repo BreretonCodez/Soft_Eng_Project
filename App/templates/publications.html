@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}App Publications{% endblock %}
+{% block page %}App Publications{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Author</th><th>Content</th><th>Citation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for publication in publications %}
+            <tr>
+                <td>{{publication.id}}</td>
+                <td>{{publication.name}}</td>
+                <td>{{publication.author}}</td>
+                <td>{{publication.content}}</td>
+                <td>{{publication.citaion}}</td>
+            </tr>
+          {% endfor %}
+        <tbody>
+      </table>
+    </div>
+{% endblock %}
