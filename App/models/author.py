@@ -4,7 +4,7 @@ from datetime import *
 from .publication import *
 
 class Author(db.Model):
-    __tablename__ = "authors"
+    __tablename__ = "author"
     id = db.Column(db.Integer, primary_key=True)
     fname =  db.Column(db.String, nullable=False)
     lname =  db.Column(db.String, nullable=False)

@@ -4,7 +4,7 @@ from .author import *
 from .author_publication import *
 
 class Publication(db.Model):
-    __tablename__ = "publications"
+    __tablename__ = "publication"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False, unique=True)
     author = db.Column(db.ForeignKey('author.id'))
