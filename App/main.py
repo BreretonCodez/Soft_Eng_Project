@@ -15,7 +15,9 @@ from App.controllers import (
 )
 
 from App.views import (
-    index_views
+    index_views,
+    author_views,
+    publication_views
 )
 
 # New views must be imported and added to this list
