@@ -7,7 +7,7 @@ from App.main import create_app
 '''from App.controllers import ( create_user, get_all_users_json, get_all_users )'''
 from App.controllers import ( create_author, get_all_authors_json, get_all_authors, get_author_by_id, get_author_by_email )
 '''from App.controllers import ( get_all_items_json )'''
-from App.controllers import ( create_publication, get_all_publications_json )
+from App.controllers import ( create_publication, get_all_pubs_json )
 
 from datetime import date
 
@@ -136,9 +136,9 @@ def create_publication_command(title, author_ids, coauthor_ids):
     print(f'{title} created!')
 
 @publication_cli.command("list")
-def list_publications():
-    publications = get_all_publications_json()
-    print(publications)
+def list_pubs():
+    pubs = get_all_pubs_json()
+    print(pubs)
 
 @publication_cli.command("create_names")
 @click.option("--author_names", "-A", multiple=True)
