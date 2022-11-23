@@ -5,6 +5,8 @@ from App.controllers import (
     create_author, 
     get_all_authors,
     get_all_authors_json,
+    get_author_by_id,
+    get_author_by_username,
 )
 
 author_views = Blueprint('author_views', __name__, template_folder='../templates')
@@ -38,16 +40,21 @@ def login_user():
     if author and author.check_password():
         return "User logged in",201
 
-
+# Jinja Routes
 @author_views.route('/authors', methods=['GET'])
 def get_authors_page():
     authors = get_all_authors()
     return render_template('authors.html', authors=authors)
 
+'''@author_views.route('/author/@<username>', methods=['GET'])
+def author_profile(username):
+    author = get_author_by_username(username)
+    return render_template('profile.html', author=author)'''
+
 @author_views.route('/author/<id>', methods=['GET'])
-def author_profile(id):
-    author = get_author(id)
-    return render_template('profile.html', author=author)
+def author_profile2(id):
+    author1 = get_author_by_id(id)
+    return render_template('profile.html', author=author1)
 
 # JS Routes
 @author_views.route('/static/authors')

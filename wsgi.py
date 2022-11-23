@@ -101,18 +101,19 @@ def user_tests_command(type):
 
 app.cli.add_command(test)
 
-# authors
+# Author Group Commands
 author_cli = AppGroup('author', help='author object commands') 
 
 @author_cli.command("create", help="Creates an author")
-@click.argument("name", default="rob")
-# @click.argument("dob", default="05/08/2001")
-@click.option("--dob", "-d")
-# @click.argument("qualifications", default="BSc. Science")
-@click.option("--qualifications", "-q")
-def create_author_command(name, dob, qualifications):
-    create_author(name, dob, qualifications)
-    print(f'{name} created!')
+@click.argument("fname", default="Nicholas")
+@click.argument("lname", default="Mendez")
+@click.argument("username", default="Snickdx")
+@click.argument("email", default="nmendez@gmail.com")
+@click.argument("password", default="mendez15cool!")
+def create_author_command(fname, lname, username, email, password):
+    create_author(fname, lname, username, email, password)
+    print(f'Author {fname} {lname} created with email {email}!')
+
 
 @author_cli.command("list")
 def list_authors():

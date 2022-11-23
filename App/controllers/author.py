@@ -2,8 +2,8 @@ from App.models import Author
 from App.database import db
 
 ''' Creates a new Author '''
-def create_author(fname, lname, email, password):
-    newAuthor = Author(fname=fname, lname=lname, email=email, password=password)
+def create_author(fname, lname, username, email, password):
+    newAuthor = Author(fname=fname, lname=lname, username=username, email=email, password=password)
     db.session.add(newAuthor)
     db.session.commit()
     return newAuthor
@@ -33,13 +33,16 @@ def get_author_by_fname(fname):
 def get_author_by_lname(lname):
     return Author.query.filter_by(lname=lname)
 
+def get_author_by_username(username):
+    return Author.query.filter_by(username=username)
+
 def get_author_by_email(email):
     author = Author.query.filter_by(email=email)
 
     if not author:
-        create_author("New", "Author", email, "newAuthor123!")
-        author = Author.query.filter_by(email=email)
-    
+        '''create_author("New", "Author", email, "newAuthor123!")
+        author = Author.query.filter_by(email=email)'''
+        return None
     return author
 
 def get_all_authors():
