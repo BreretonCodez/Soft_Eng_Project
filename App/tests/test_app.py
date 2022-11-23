@@ -17,7 +17,7 @@ from App.controllers import (
     get_all_authors_json,
     create_author,
     create_publication,
-    get_all_publications_json,
+    get_all_pubs_json,
     get_author
 )
 
@@ -54,8 +54,8 @@ class UserUnitTests(unittest.TestCase):
 class AuthorUnitTests(unittest.TestCase):
 
     def test_new_author(self):
-        author = Author("Bob Moog", "05/08/2001", "BSc. Computer Science")
-        assert author.name == "Bob Moog" and author.dob == datetime.strptime("05/08/2001", "%d/%m/%Y") and author.qualifications == "BSc. Computer Science"
+        author = Author("James", "Bond", "jamesbond", "jbond@spy.net", "jbondisanagent!")
+        assert author.fname == "James" and author.lname == "Bond" and author.username == "jamesbond" and author.email == "jbond@spy.net"
 
     def test_author_toJSON(self):
         author = Author("Bob Moog", "05/08/2001", "BSc. Computer Science")
