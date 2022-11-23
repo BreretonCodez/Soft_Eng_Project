@@ -56,7 +56,7 @@ def author_profile(fname, lname, id):
     return render_template('profile.html', author=author)
 
 
-@author_views.route('/author/<username>-<id>')
+'''@author_views.route('/author/<username>-<id>')
 def author_profile(username,id):
     author = get_author(id)
-    return render_template('profile.html', author=author)
+    return render_template('profile.html', author=author)'''
