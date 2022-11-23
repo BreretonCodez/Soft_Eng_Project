@@ -66,7 +66,7 @@ def get_pubs_by_author(author_id):
 def get_all_pubs():
     return Publication.query.all()
 
-def get_all_publications_json():
+def get_all_pubs_json():
     pubs = Publication.query.all()
     if not pubs:
         return []
