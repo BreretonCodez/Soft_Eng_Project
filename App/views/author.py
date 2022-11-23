@@ -40,23 +40,56 @@ def login_user():
 
 
 @author_views.route('/authors', methods=['GET'])
-def get_author_page():
+def get_authors_page():
     authors = get_all_authors()
     return render_template('authors.html', authors=authors)
 
-@author_views.route('/api/authors')
-def client_app():
-    authors = get_all_authors_json()
-    return jsonify(authors)
-
-
-@author_views.route('/author/<fname>-<lname>-<id>')
-def author_profile(fname, lname, id):
+@author_views.route('/author/<id>', methods=['GET'])
+def author_profile(id):
     author = get_author(id)
     return render_template('profile.html', author=author)
 
+# JS Routes
+@author_views.route('/static/authors')
+def static_author_page():
+  return send_from_directory('static', 'static-user.html')
 
-'''@author_views.route('/author/<username>-<id>')
-def author_profile(username,id):
-    author = get_author(id)
-    return render_template('profile.html', author=author)'''
+# API Routes
+@author_views.route('/api/authors', methods=['GET'])
+def get_all_authors_action():
+    authors = get_all_authors_json()
+    return jsonify(authors)
+
+@author_views.route('/api/authors/id', methods=['GET'])
+def get_author_action():
+    data = request.json
+    author = get_author(data['id'])
+    if author:
+        return author.toJSON()
+    return jsonify({"message":"Author not found!"})
+
+@author_views.route('/api/authors', methods=['POST'])
+def create_author_action():
+    data = request.json
+    if get_author_email(data['email']):
+        return jsonify({"message":"Author email already exists!"})
+    author = create_author(data['fname'], data['lname'], data['email'], data['password'])
+    return jsonify({"message":"Author created successfully!"})
+
+@author_views.route('/api/authors', methods=['PUT'])
+def update_author_action():
+    data = request.json
+    author = get_author(data['id'])
+    if author:
+        update_author(data['id'], data['fname'], data['lname'], data['email'], data['password'])
+        return jsonify({"message":"Author updated successfully!"})
+    return jsonify({"message":"Author not found!"})
+
+@author_views.route('/api/authors', methods=['DELETE'])
+def delete_author_action():
+    data = request.json
+    author = get_author(data['id'])
+    if author:
+        delete_author(data['id'])
+        return jsonify({"message":"Author deleted successfully!"})
+    return jsonify({"message":"Author not found!"})
