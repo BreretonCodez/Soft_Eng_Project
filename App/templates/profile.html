@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %} {{ author.fname }} {{ author.lname }} | UWI Research Platform{% endblock %}
+{% block page %}UWI Research Platform{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+    <h2> {{ author.fname }} {{ author.lname }} </h2>
+    <h5>Author <br> Publications: {{ author.publications | count }}</h5>
+
+    <div class="center">
+        <h4>Publications</h4>
+        <div class="row">
+            <div class="col s12">
+                <div class="row" style="overflow-y: scroll; height:82vh">
+
+                    {% for publication in author.publications %}
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle">folder</i>
+                            <a href="/publication/{{publication.id}}"><span class="title">{{publication.name}}</span></a>
+                            <p>{{publication.content}} </p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+     
+{% endblock %}
