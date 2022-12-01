@@ -23,6 +23,12 @@ Generic Commands
 @app.cli.command("init", help="Creates and initializes the database")
 def initialize():
     create_db(app)
+    print('database intialized')
+
+# This command creates initial database objects
+@app.cli.command("setup", help="Creates the database objects")
+def initialize():
+    create_db(app)
     create_user("whiteStar", "Password123!", "Mike", "Whitmore", "mwhitmore@gmail.com")
     create_user("Snickdx", "mendez15cool!", "Nicholas", "Mendez", "nmendez@gmail.com")
     create_user("Kingmb", "micah15cool!", "Micah", "Brereton", "mbrereton@gmail.com")
@@ -42,7 +48,7 @@ def initialize():
 
     add_pub_co_author(6, 5)
 
-    print('database intialized')
+    print('database setup')
 
 
 # User Commands
