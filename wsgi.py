@@ -2,11 +2,10 @@ import click, pytest, sys
 from flask import Flask
 from flask.cli import with_appcontext, AppGroup
 
-from App.database import create_db, get_migrate
+from App.database import create_db, get_migrate, db
 from App.main import create_app
 '''from App.controllers import ( create_user, get_all_users_json, get_all_users )'''
 from App.controllers import ( create_author, get_all_authors_json, get_all_authors, get_author_by_id, get_author_by_email )
-'''from App.controllers import ( get_all_items_json )'''
 from App.controllers import ( create_publication, get_all_pubs_json )
 
 from datetime import date

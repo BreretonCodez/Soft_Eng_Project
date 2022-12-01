@@ -5,9 +5,9 @@ from .author_publication import *
 
 class Publication(db.Model):
     __tablename__ = "publication"
-    id = db.Column(db.Integer, primary_key=True)
+    pubId = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False, unique=True)
-    author = db.Column(db.ForeignKey('author.id'))
+    author = db.Column(db.ForeignKey('author.authorId'))
     coauthors = db.relationship('Author', secondary=PublicationTree)
     link = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
@@ -25,7 +25,7 @@ class Publication(db.Model):
     
     def toJSON(self):
         return{
-            'id': self.id,
+            'pubId': self.pubId,
             'title': self.title, 
             'authors': self.author.toJSON(),
             'coauthors': [coauthor.toJSON() for coauthor in self.coauthors],
