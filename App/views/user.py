@@ -4,7 +4,9 @@ from flask_jwt import jwt_required
 import sys
 
 from App.controllers import (
-    create_user, 
+    create_user,
+    get_user_by_id,
+    get_user_by_username, 
     get_all_users,
     get_all_users_json,
 )
@@ -13,20 +15,7 @@ from App.controllers import *
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-
-@user_views.route('/users', methods=['GET'])
-def get_user_page():
-    users = get_all_users()
-    return render_template('users.html', users=users)
-
-@user_views.route('/api/users')
-def client_app():
-    users = get_all_users_json()
-    return jsonify(users)
-
-@user_views.route('/static/users')
-def static_user_page():
-  return send_from_directory('static', 'static-user.html')
+# AUTHENTICATION ROUTES
 
 @user_views.route('/signup', methods=["POST"])
 def create_user_route():
@@ -41,6 +30,36 @@ def create_user_route():
     if not user:
         return "Failed to create.", 400
     return user.toJSON(), 201
+
+
+@user_views.route('/login',methods=['POST'])
+def login_user():
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    if not email or not password:
+        return "Please enter both an email and password",400
+    author = Author.query.filter_by(email).first()
+    if author and author.check_password():
+        return "User logged in",201
+
+# JINJA ROUTES
+
+@user_views.route('/users', methods=['GET'])
+def get_user_page():
+    users = get_all_users()
+    return render_template('users.html', users=users)
+
+@user_views.route('/static/users')
+def static_user_page():
+  return send_from_directory('static', 'static-user.html')
+
+# API ROUTES
+
+@user_views.route('/api/users')
+def client_app():
+    users = get_all_users_json()
+    return jsonify(users)
 
 @user_views.route('/publications', methods=["GET"])
 def get_publications():

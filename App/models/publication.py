@@ -27,13 +27,16 @@ class Publication(db.Model):
         return{
             'pubId': self.pubId,
             'title': self.title, 
-            'authors': self.author.toJSON(),
+            'author': self.author.toJSON(),
             'coauthors': [coauthor.toJSON() for coauthor in self.coauthors],
             'link': self.link,
             'content': self.content,
             'publisher': self.publisher,
             'year': self.year,
         }
+
+    def add_co_author(self, author):
+        self.coauthors.append(author)
 
     def pubtree(self):
         print(f"Publication Tree for Publication {self.title}")

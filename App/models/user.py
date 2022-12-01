@@ -4,8 +4,8 @@ from .author import *
 from .publication import *
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    authorId = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
+    userId = db.Column(db.Integer, primary_key=True)
+    authorId = db.Column(db.Integer, db.ForeignKey('author.authorId'), nullable=False)
     username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(128), nullable=False)
     author=db.relationship('Author')
@@ -19,6 +19,14 @@ class User(db.Model):
         self.authorId = author.authorId
         self.username = username
         self.set_password(password)
+
+    def toJSON(self):
+        return{
+            'userId': self.userId,
+            'authorId': self.authorId,
+            'username': self.username,
+            'author': author.toJSON(),
+        }
 
     def set_password(self, password):
         '''Create hashed password.'''

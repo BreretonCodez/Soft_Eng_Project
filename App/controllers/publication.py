@@ -4,8 +4,8 @@ from App.database import db
 from .author import *
 
 ''' Creates a new publication '''
-def create_publication(title, author, content, citation):
-    newPub = Publication(title=title, author=author, content=content, citation=citation)
+def create_publication(title, author, link, content, publisher, year):
+    newPub = Publication(title=title, author=author, link=link, content=content, publisher=publisher, year=year)
     db.session.add(newPub)
     db.session.commit()
     return newPub
@@ -44,7 +44,7 @@ def add_pub_co_author(id, co_author):
 ''' Searches for a Publication '''
 def search_pub(search):
     return Publication.query.filter(
-        Publication.name.like( '%'+search+'%' )
+        Publication.title.like( '%'+search+'%' )
     )
 
 ''' Publication Getters by parameter '''
@@ -52,7 +52,7 @@ def get_pub_by_id(id):
     return Publication.query.get(id)
 
 def get_pub_by_title(title):
-    return Publication.query.filter_by(name=name).first()
+    return Publication.query.filter_by(title=title).first()
 
 def get_pubs_by_author(author_id):
     pubs = Publication.query.filter_by(author=author_id).all()

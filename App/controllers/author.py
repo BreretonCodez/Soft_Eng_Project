@@ -1,4 +1,4 @@
-from App.models import Author
+from App.models import Author, User
 from App.database import db
 
 ''' Creates a new Author '''
@@ -22,6 +22,12 @@ def search_author(search):
         Author.name.like( '%'+search+'%')
     )
 
+# Searches for User by Author ID
+def find_user_by_author_id(id):
+    return User.query.filter(
+        User.authorId.like( '%'+id+'%' )
+    )
+
 ''' Author Getters by parameter '''
 
 def get_author_by_id(id):
@@ -33,15 +39,9 @@ def get_author_by_fname(fname):
 def get_author_by_lname(lname):
     return Author.query.filter_by(lname=lname)
 
-def get_author_by_username(username):
-    return Author.query.filter_by(username=username)
-
 def get_author_by_email(email):
     author = Author.query.filter_by(email=email)
-
     if not author:
-        '''create_author("New", "Author", email, "newAuthor123!")
-        author = Author.query.filter_by(email=email)'''
         return None
     return author
 
@@ -55,15 +55,4 @@ def get_all_authors_json():
     authors = [author.toJSON() for author in authors]
     return authors
 
-'''def get_author_publications(id):
-    author = get_author(id)
-    if not author:
-        return []
-    return author.get_publications()
-
-def getpublicationtree(id):
-    author = get_author(id)
-    if not author:
-        return []
-    return author.get_publications()'''
     

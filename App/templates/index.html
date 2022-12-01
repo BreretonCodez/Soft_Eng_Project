@@ -31,19 +31,19 @@
                 <ul class="collection hoverable">
                     <li class="collection-item avatar">
                         <i class="material-icons circle">folder</i>
-                        <a href="/publication/{{publication.id}}"><span class="title">{{publication.name}}</span></a>
+                        <a href="/publication/{{publication.pubId}}"><span class="title">{{publication.title}}</span></a>
                         <p>
                             {% for author in authors  %}
-                            {% if author.id == publication.author %}
+                            {% if author.authorId == publication.author %}
 
-                                Author: <a href="/author/{{author.id}}">{{author.fname}} {{author.lname}}</a> 
+                                Author: <a href="/author/{{author.authorId}}">{{author.fname}} {{author.lname}}</a> 
 
                             {% endif %}
                             {% endfor %}
                             <br>
                             Co-Authors:
                             {% for coauthor in publication.coauthors %}
-                            <a href="/author/{{coauthor.id}}">{{coauthor.fname}} {{coauthor.lname}}</a>, 
+                            <a href="/author/{{coauthor.authorId}}">{{coauthor.fname}} {{coauthor.lname}}</a>, 
                             {% endfor %}
                             <br> 
                             {{publication.content}} 
@@ -59,8 +59,8 @@
             <section class="row" style="overflow-y: scroll; height:82vh">
 
                 <ul class="collection">
-                    {% for author in authors %}
-                    <a href="/author/{{author.id}}" class="collection-item">{{author.fname}} {{author.lname}}</a>
+                    {% for user in users %}
+                    <a href="/author/@{{user.username}}" class="collection-item">{{user.author.fname}} {{user.author.lname}}</a>
                     {% endfor %}
                 </ul>
 

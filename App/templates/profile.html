@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <h2> {{ author.fname }} {{ author.lname }} | {{ author.username }}</h2>
+    <h2> {{ author.fname }} {{ author.lname }} | <a href="/author/@{{ user.username }}">@{{ user.username }}</a></h2>
     <h5>Author <br> Publications: {{ author.publications | count }}</h5>
 
     <div class="center">
@@ -19,7 +19,7 @@
                     <ul class="collection">
                         <li class="collection-item avatar">
                             <i class="material-icons circle">folder</i>
-                            <a href="/publication/{{publication.id}}"><span class="title">{{publication.name}}</span></a>
+                            <a href="/publication/{{publication.pubId}}"><span class="title">{{publication.title}}</span></a>
                             <p>{{publication.content}} </p>
                         </li>
                     </ul>

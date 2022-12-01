@@ -17,7 +17,8 @@ from App.controllers import (
 from App.views import (
     index_views,
     author_views,
-    pub_views
+    pub_views,
+    user_views
 )
 
 # New views must be imported and added to this list
@@ -26,6 +27,7 @@ views = [
     index_views,
     author_views,
     pub_views,
+    user_views,
 ]
 
 def add_views(app, views):

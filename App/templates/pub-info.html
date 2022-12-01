@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %} {{ publication.title }} | UWI Research Platform{% endblock %}
+{% block page %}UWI Research Platform{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+    <h3> {{ publication.title }} </h3>
+    <h5>Author: <a href="/author/{{author.authorId}}"> {{ author.fname }} {{ author.lname }}</a> </h5>
+    <h5>Co-Authors: 
+        {% for coauthor in publication.coauthors %}
+        <a href="/author/{{coauthor.authorId}}"> {{ coauthor.fname }} {{ coauthor.lname }}</a>, 
+        {% endfor %}
+    </h5>
+
+    <h5>Link: <a href="{{ publication.link }}"> {{ publication.link }} </a> </h5>
+    <h5>Content: {{ publication.content }} </h5>
+    <h5>Publisher: {{ publication.publisher }} </h5>
+    <h5>Year: {{ publication.year }} </h5>
+    <br>
+    <hr>
+    <br>
+    <h5 class="center">Co-Author Publications </h5>
+    <br>
+    <section class="row" style="overflow-y: scroll; height:82vh">
+        {% for coauthor in publication.coauthors %}
+        <div class="col s12 m3">
+            
+            {% for publication in coauthor.publications %}
+            <div class="card center">
+                <br>
+                <p class="">
+                    <a href="/publication/{{publication.pubId}}">{{publication.title}}</a>
+                </p>
+                <div class="card-content">
+                    <a href="/author/{{coauthor.authorId}}">{{coauthor.fname}} {{coauthor.lname}}</a> <br><br>
+                    {{publication.content}} <br>
+                      
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+
+      </section>
+     
+{% endblock %}

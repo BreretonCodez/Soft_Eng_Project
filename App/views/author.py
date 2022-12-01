@@ -6,39 +6,13 @@ from App.controllers import (
     get_all_authors,
     get_all_authors_json,
     get_author_by_id,
-    get_author_by_username,
+    get_user_by_id,
+    get_user_by_username,
 )
 
 author_views = Blueprint('author_views', __name__, template_folder='../templates')
 
-@author_views.route('/signup', methods=['GET','POST'])
-def create_user_route():
-    data = request.get_json()
-    if not data:
-        return "Missing request body.", 400
-    firstName = data['fistname']
-    lastName = data['lastname']
-    email = data['email']
-    username = data['username']
-    password = data['password']
-    if not username or not password or not email or not firstName or not lastName:
-        return "You are missing a field, please ensure that all fields are used", 400
-    user = create_user(firstName,lastName,username,email,password)
-    if not user:
-        return "Failed to create.", 400
-    return user.toJSON(), 201
 
-
-@author_views.route('/login',methods=['POST'])
-def login_user():
-    data = request.get_json()
-    email = data['email']
-    password = data['password']
-    if not email or not password:
-        return "Please enter both an email and password",400
-    author = Author.query.filter_by(email).first()
-    if author and author.check_password():
-        return "User logged in",201
 
 # Jinja Routes
 @author_views.route('/authors', methods=['GET'])
@@ -46,15 +20,16 @@ def get_authors_page():
     authors = get_all_authors()
     return render_template('authors.html', authors=authors)
 
-'''@author_views.route('/author/@<username>', methods=['GET'])
+@author_views.route('/author/@<username>', methods=['GET'])
 def author_profile(username):
-    author = get_author_by_username(username)
-    return render_template('profile.html', author=author)'''
+    user = get_user_by_username(username)
+    author = get_author_by_id(user.authorId)
+    return render_template('profile.html', user=user, author=author)
 
-@author_views.route('/author/<id>', methods=['GET'])
+'''@author_views.route('/author/<id>', methods=['GET'])
 def author_profile2(id):
     author1 = get_author_by_id(id)
-    return render_template('profile.html', author=author1)
+    return render_template('profile.html', author=author1)'''
 
 # JS Routes
 @author_views.route('/static/authors')

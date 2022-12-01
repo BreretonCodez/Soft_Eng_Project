@@ -3,9 +3,11 @@ from flask_jwt import jwt_required
 
 
 from App.controllers import (
-    create_publication, 
+    create_publication,
+    get_pub_by_id,
     get_all_pubs,
     get_all_pubs_json,
+    get_author_by_id,
 )
 
 pub_views = Blueprint('pub_views', __name__, template_folder='../templates')
@@ -19,8 +21,8 @@ def get_pub_page():
 
 @pub_views.route('/publication/<id>')
 def pub_info(id):
-    publication = get_pub(id)
-    author = get_author(publication.author)
+    publication = get_pub_by_id(id)
+    author = get_author_by_id(publication.author)
     return render_template('pub-info.html', publication=publication, author=author)
 
 # JS Routes
