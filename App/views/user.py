@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, session
+from flask_login import login_required, current_user
 from flask_jwt import jwt_required
 # for exceptions
 import sys
@@ -78,7 +79,7 @@ def static_user_page():
   return send_from_directory('static', 'static-user.html')
 
 @user_views.route('/profile/@<username>', methods=['GET'])
-@jwt_required
+@login_required
 def user_profile(username):
     user = get_user_by_username(username)
     return render_template('/protected/profile.html', user=user)
