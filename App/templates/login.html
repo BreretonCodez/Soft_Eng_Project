@@ -5,30 +5,25 @@
 {{ super() }}
 
 {% block content %}
-
-    <main style="padding: 1em" class="row">
-        <section class="col s12 m8">
-            <h1 class="center">Login</h1>
-            <div class="row center">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                        <input id="email" type="email" class="validate">
-                        <label for="email">Email</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                        <input id="password" type="password" class="validate">
-                        <label for="password">Password</label>
-                        </div>
-                    </div>        
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                        <i class="material-icons right">send</i>
-                    </button>   
-                </form>
+<main class="container" style="margin-top: 25vh;">
+    <div class="container">
+        <form class="card col s12 login-card" id="loginForm" method="POST" action="/login" style="padding:1em">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="username" type="text" class="validate">
+                    <label for="username">Username</label>
+                </div>
             </div>
-        </section>
-    </main>
-      
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="card-action center">
+                <input type="submit" class="indigo-text text-darken-4 btn orange lighten-1" style="border-radius: 15px;" value="Login">
+            </div>
+        </form>
+    </div>
+</main>
 {% endblock %}

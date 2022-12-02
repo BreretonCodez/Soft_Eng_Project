@@ -9,17 +9,17 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th><th>Name</th><th>Author</th><th>Content</th><th>Citation</th>
+            <th>ID</th><th>Name</th><th>Author</th><th>Content</th><th>Link</th>
           </tr>
         </thead>
         <tbody>
           {% for publication in publications %}
             <tr>
-                <td>{{publication.id}}</td>
-                <td>{{publication.name}}</td>
+                <td>{{publication.pubId}}</td>
+                <td>{{publication.title}}</td>
                 <td>{{publication.author}}</td>
                 <td>{{publication.content}}</td>
-                <td>{{publication.citaion}}</td>
+                <td><a href="{{publication.link}}">{{publication.link}}</a></td>
             </tr>
           {% endfor %}
         <tbody>

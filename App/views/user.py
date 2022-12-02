@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, session
 from flask_jwt import jwt_required
 # for exceptions
 import sys
@@ -17,6 +17,29 @@ user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
 # AUTHENTICATION ROUTES
 
+@user_views.route('/login', methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        data = request.form
+        usern = data['username']
+        passw = data['password']
+
+        if not usern or not passw:
+            flash('Please enter both an username and password')
+            return render_template('login.html')
+
+        user = authenticate(usern, passw)
+
+        if user: # check credentials
+            flash('Logged in successfully.') # send message to next page
+            log_in_user(user, True) # login the user
+            return redirect('/profile/@' + str(user.username))
+
+        else:
+            flash('Invalid username or password') # send message to next page
+
+    return render_template('login.html')
+
 @user_views.route('/signup', methods=["POST"])
 def create_user_route():
     data = request.get_json()
@@ -33,7 +56,7 @@ def create_user_route():
 
 
 @user_views.route('/login',methods=['POST'])
-def login_user():
+def login_u():
     data = request.get_json()
     email = data['email']
     password = data['password']
@@ -53,6 +76,12 @@ def get_user_page():
 @user_views.route('/static/users')
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
+
+@user_views.route('/profile/@<username>', methods=['GET'])
+@jwt_required
+def user_profile(username):
+    user = get_user_by_username(username)
+    return render_template('/protected/profile.html', user=user)
 
 # API ROUTES
 

@@ -12,6 +12,7 @@ def create_user(username, password, fname, lname, email):
 def delete_user(id):
     user = get_user_by_id(id)
     if user:
+        delete_author(user.authorId)
         db.session.delete(user)
         db.session.commit()
     return None
@@ -25,7 +26,7 @@ def search_user(search):
 ''' Author Accessors by parameter '''
 
 def get_user_by_id(id):
-    return User.query.get(id)
+    return User.query.filter_by(id=id).first()
 
 def get_user_by_username(username):
     return User.query.filter_by(username=username).first()
