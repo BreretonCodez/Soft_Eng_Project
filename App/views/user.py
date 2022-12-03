@@ -35,14 +35,35 @@ def login():
         if user: # check credentials
             flash('Logged in successfully.') # send message to next page
             log_in_user(user, True) # login the user
-            return redirect('/profile/@' + str(user.username))
+            return redirect("/profile/@" + str(usern))
 
         else:
             flash('Invalid username or password') # send message to next page
 
     return render_template('login.html')
 
-@user_views.route('/signup', methods=["POST"])
+
+@user_views.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    log_out_user()
+    flash('Logged out successfully.') # send message to next page
+    return redirect("/login")
+
+@user_views.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        form = request.form
+        user = create_user(form["username"], form["password"], form["fname"], form["lname"], form["email"])
+        if not user:
+            flash("Author already exists.")
+            return render_template("register.html")
+        flash("User account succesfully created.")
+        return redirect("/login")
+    else: 
+        return render_template("register.html")
+
+'''@user_views.route('/signup', methods=["POST"])
 def create_user_route():
     data = request.get_json()
     if not data:
@@ -54,7 +75,7 @@ def create_user_route():
     user = create_user(username, password)
     if not user:
         return "Failed to create.", 400
-    return user.toJSON(), 201
+    return user.toJSON(), 201'''
 
 
 @user_views.route('/login',methods=['POST'])

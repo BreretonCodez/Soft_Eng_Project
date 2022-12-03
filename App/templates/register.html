@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Register | UWI Research Platform{% endblock %}
+{% block page %}UWI Research Platform{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<main class="container" style="margin-top: 7vh;">
+    <div class="container">
+        <form class="card col s12" id="loginForm" method="POST" action="/register" style="padding:1em; border-radius: 15px;">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="John" name="fname" type="text" class="validate">
+                    <label for="fname">First Name</label>
+                </div>
+                <div class="input-field col s12">
+                    <input placeholder="Doe" name="lname" type="text" class="validate">
+                    <label for="lname">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="" name="username" type="text" class="validate">
+                    <label for="first_name">Username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="" name="email" type="email" class="validate">
+                    <label for="first_name">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="card-action center">
+                <input type="submit" class="indigo-text text-darken-4 btn orange lighten-1" style="border-radius: 15px;" value="Register">
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
