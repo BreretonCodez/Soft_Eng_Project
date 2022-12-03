@@ -60,7 +60,6 @@ def get_pubs_by_author(author_id):
     if not pubs:
         return []
 
-    pubs = [pub.toJSON() for pub in pubs]
     return pubs
 
 def get_all_pubs():

@@ -10,6 +10,7 @@ from App.controllers import (
     get_user_by_username, 
     get_all_users,
     get_all_users_json,
+    get_pubs_by_author,
 )
 
 from App.controllers import *
@@ -82,7 +83,9 @@ def static_user_page():
 @login_required
 def user_profile(username):
     user = get_user_by_username(username)
-    return render_template('/protected/profile.html', user=user)
+    author = get_author_by_id(user.authorId)
+    publications = get_pubs_by_author(user.authorId)
+    return render_template('/protected/profile.html', user=user, author=author, publications=publications)
 
 # API ROUTES
 

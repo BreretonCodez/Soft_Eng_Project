@@ -1,8 +1,103 @@
 {% extends "/protected/layout.html" %}
-{% block title %}UWI Research Platform{% endblock %}
-{% block page %}UWI Research Platform{% endblock %}
+{% block title %} {{ user.username }} | Author Dashboard | UWI Research Platform{% endblock %}
+{% block page %}Dashboard{% endblock %}
+{% block page2 %}Dashboard{% endblock %}
 
 {{ super() }}
 
-{% block content %}
+{% block user_sidebar %}
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+      <img src="{{ url_for('static', filename='/imgs/user-icon-vector.jpg') }}" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+      <a href="#" class="d-block">{{ author.fname }} {{ author.lname }} </a>
+    </div>
+</div>
 {% endblock %}
+
+{% block user_dash %}
+    <!-- Small boxes (Stat box) -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3> {{ author.publications | count }} </h3>
+
+            <p>Publications</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            {% for publication in publications %}
+            {% with coauthors = publication.coauthors | count %}
+            <h3> {{ coauthors }} </h3>
+            {% endwith %}
+            {% endfor %}
+            <p>Co-Authors</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>0</h3>
+
+            <p>Publication Reads</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>0</h3>
+
+            <p>Profile Views</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+{% endblock %}
+
+{% block user_last_pub %}
+  {% for publication in publications[-1:] %}
+    <div class="card card-primary card-outline">
+      <div class="card-body">
+        <h4 class="card-title"> {{ publication.title }} </h4>
+        <br>
+        <p class="card-text">
+          {{ publication.content }}
+        </p>
+    
+        <a href="#" class="card-link"> {{ publication.publisher }} </a>
+        <a href="#" class="card-link"> {{ publication.year }} </a>
+        <a href="{{ publication.link }}" class="card-link"> {{ publication.link }} </a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
