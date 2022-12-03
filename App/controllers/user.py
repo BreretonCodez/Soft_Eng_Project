@@ -31,6 +31,9 @@ def get_user_by_id(id):
 def get_user_by_username(username):
     return User.query.filter_by(username=username).first()
 
+def get_user_by_author(authorId):
+    return User.query.filter_by(authorId=authorId).first()
+
 def get_all_users():
     return User.query.all()
 

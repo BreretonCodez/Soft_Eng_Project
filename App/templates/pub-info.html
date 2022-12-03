@@ -7,7 +7,7 @@
 {% block content %}
 
     <h3> {{ publication.title }} </h3>
-    <h5>Author: <a href="/author/{{author.authorId}}"> {{ author.fname }} {{ author.lname }}</a> </h5>
+    <h5>Author: <a href="/author/@{{user.username}}"> {{ author.fname }} {{ author.lname }}</a> </h5>
     <h5>Co-Authors: 
         {% for coauthor in publication.coauthors %}
         <a href="/author/{{coauthor.authorId}}"> {{ coauthor.fname }} {{ coauthor.lname }}</a>, 

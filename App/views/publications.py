@@ -8,6 +8,7 @@ from App.controllers import (
     get_all_pubs,
     get_all_pubs_json,
     get_author_by_id,
+    get_user_by_author,
 )
 
 pub_views = Blueprint('pub_views', __name__, template_folder='../templates')
@@ -23,7 +24,8 @@ def get_pub_page():
 def pub_info(id):
     publication = get_pub_by_id(id)
     author = get_author_by_id(publication.author)
-    return render_template('pub-info.html', publication=publication, author=author)
+    user = get_user_by_author(author.authorId)
+    return render_template('pub-info.html', publication=publication, author=author, user=user)
 
 # JS Routes
 
