@@ -37,11 +37,12 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            {% for publication in publications %}
-            {% with coauthors = publication.coauthors | count %}
-            <h3> {{ coauthors }} </h3>
-            {% endwith %}
+            {% set ns = namespace (coauthors = 0) -%}
+            {% for publication in publications -%}
+            {% set total = publication.coauthors | count -%}
+            {% set ns.coauthors = ns.coauthors + total -%}
             {% endfor %}
+            <h3> {{ ns.coauthors }}</h3>
             <p>Co-Authors</p>
           </div>
           <div class="icon">
