@@ -19,18 +19,20 @@ def delete_publication(id):
     return None
 
 ''' Updates a publication '''
-def update_pub(id, title, author, content, citation):
+def update_pub(id, title, author, content, link, publisher, year):
     pub = get_pub_by_id(id)
     if pub:
         pub.title = title
         pub.author = author
         pub.content = content
-        pub.citation = citation
+        pub.link = link
+        pub.publisher = publisher
+        pub.year = year
         db.session.add(pub)
         return db.session.commit()
     return None
 
-''' Add Publication Co-Author '''
+''' Publication Co-Author '''
 
 def add_pub_co_author(id, co_author):
     pub = get_pub_by_id(id)
@@ -40,6 +42,20 @@ def add_pub_co_author(id, co_author):
         db.session.add(pub)
         return db.session.commit()
     return None
+
+def del_pub_co_author(id, co_author):
+    pub = get_pub_by_id(id)
+    if pub:
+        author = get_author_by_id(co_author)
+        if author:
+            cas = pub.coauthors
+            for ca in cas:
+                if author.authorId == ca.authorId:
+                    pub.coauthors.remove(author)
+                    db.session.add(pub)
+                    return db.session.commit()
+    return None
+
 
 ''' Searches for a Publication '''
 def search_pub(search):

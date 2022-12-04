@@ -1,12 +1,12 @@
 {% extends "/protected/layout.html" %}
-{% block title %} Add Publication | Author Dashboard | UWI Research Platform{% endblock %}
-{% block page %}Add Publication{% endblock %}
+{% block title %} All Publications | Author Dashboard | UWI Research Platform{% endblock %}
+{% block page %}All Publications{% endblock %}
 
 {{ super() }}
 
 {% block breadcrumbs %}
 <li class="breadcrumb-item active">Publications</li>
-<li class="breadcrumb-item active">Add Publication</li>
+<li class="breadcrumb-item active">All Publications</li>
 {% endblock %}
 
 {% block user_sidebar %}
@@ -41,9 +41,10 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="/profile/@{{ user.username }}/publications" class="nav-link">
+          <a href="/profile/@{{ user.username }}/publications" class="nav-link active">
             <i class="far fa-circle nav-icon"></i>
             <p>All Publications</p>
+            <span class="badge badge-info right"> {{ author.publications | count }} </span>
           </a>
         </li>
         <li class="nav-item">
@@ -79,50 +80,27 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-          <!-- Left Column -->
-            <div class="col md-6">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Publication Details</h3>
-                    </div>
-                    <!-- /.card-header -->
+            <div class="col-lg-6">
+                {% for pub in pubs %}
+                <div class="card card-primary card-outline">
                     <div class="card-body">
-                        <form method="POST" action="/profile/@{{ user.username }}/publication/add">
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input type="text" name="title" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label>Link</label>
-                                <input type="text" name="link" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label>Content</label>
-                                <textarea class="form-control" name="content" rows="3" value=""></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Publisher</label>
-                                <input type="text" name="publisher" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label>Year</label>
-                                <input type="text" name="year" class="form-control" value="">
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Create</button>
-                            </div>
-                        </form>
+                        <h5 class="card-title"> <span class="fa fa-book text-lg"> {{ pub.title }} </span> </h5>
+                        <br>
+                        <p class="card-text">
+                            {{ pub.content }}
+                        </p>
+                    
+                        <a href="" class="card-link"> {{ pub.publisher }} </a>
+                        <a href="" class="card-link"> {{ pub.year }} </a>
+                        <a href="{{ pub.link }}" class="card-link"> {{ pub.link }} </a>
+                        <a href="/profile/publication/{{ pub.pubId }}/edit" class="card-link btn btn-primary"> Edit </a>
+                        <a href="#" id="test6" class="card-link btn btn-danger"> Delete </a>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
-            </div>
-          <!-- Right Column -->
-            <div class="col md-6">
-                
+                {% endfor %}
             </div>
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
-</div>
+  </div>
 {% endblock %}

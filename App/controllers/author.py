@@ -40,7 +40,7 @@ def get_author_by_lname(lname):
     return Author.query.filter_by(lname=lname)
 
 def get_author_by_email(email):
-    author = Author.query.filter_by(email=email)
+    author = Author.query.filter_by(email=email).first()
     if not author:
         return None
     return author

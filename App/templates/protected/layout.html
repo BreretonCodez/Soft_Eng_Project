@@ -78,15 +78,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <nav class="white black-text" style="padding: 10px">
-      <div class="nav-wrapper">
-          <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
+      <div class="container">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-4">
+            <ul class="alert alert-info">
+              {% for message in messages %}
+                <p indigo-text text-darken-4>{{ message }}</p>
+              {% endfor %}
+              </ul>
+          </div>
+        </div>
       </div>
-    </nav>
     {% endif %}
   {% endwith %}
 
@@ -115,58 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Publications
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Publications</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Publication</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Settings
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+      {% block sidebar_menu %}{% endblock %}
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -184,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Home</li>
-              <li class="breadcrumb-item active">{% block page2 %}{% endblock %}</li>
+              {% block breadcrumbs %}{% endblock %}
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -193,42 +145,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          {% block user_dash %}{% endblock %}
-          <div class="col-lg-6">
-            <h3>Latest Publication</h3>
-            {% block user_last_pub %}{% endblock %}
-
-            <!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Quick Start</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">This will get you up and running!</h6>
-                <br>
-                <ul>
-                  <li>Verify your email!</li>
-                  <li>Add a profile picture!</li>
-                  <li>Add a test publication!</li>
-                  <li>Update your test publication!</li>
-                  <li>Delete your test publication!</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Get Started!</a>
-              </div>
-            </div>
-
-          </div>
-          <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+    
+    {% block user_dash %}{% endblock %}
+            
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -263,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      Developed by D-DOS Software | v.0.7.2
+      Developed by D-DOS Software | v.0.7.3
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2022 <a href="/">UWI Publications</a>.</strong> All rights reserved.

@@ -1,9 +1,12 @@
 {% extends "/protected/layout.html" %}
 {% block title %} {{ user.username }} | Author Dashboard | UWI Research Platform{% endblock %}
 {% block page %}Dashboard{% endblock %}
-{% block page2 %}Dashboard{% endblock %}
 
 {{ super() }}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
 
 {% block user_sidebar %}
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -16,7 +19,66 @@
 </div>
 {% endblock %}
 
+{% block sidebar_menu%}
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Add icons to the links using the .nav-icon class
+         with font-awesome or any other icon font library -->
+    <li class="nav-item">
+      <a href="/profile/@{{ user.username }}" class="nav-link active">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+          Publications
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="/profile/@{{ user.username }}/publications" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>All Publications</p>
+            <span class="badge badge-info right"> {{ author.publications | count }} </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/profile/@{{ user.username }}/publication/add" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Add Publication</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-cog"></i>
+        <p>
+          Settings
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Profile</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+{% endblock %}
+
 {% block user_dash %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
     <!-- Small boxes (Stat box) -->
       <div class="col-lg-3 col-6">
         <!-- small box -->
@@ -82,23 +144,51 @@
         </div>
       </div>
       <!-- ./col -->
-{% endblock %}
+      <div class="col-lg-6">
+        <h3>Latest Publication</h3>
+        {% for publication in publications[-1:] %}
+        <div class="card card-primary card-outline">
+          <div class="card-body">
+            <h4 class="card-title text-lg"> <span class="fa fa-book text-lg"> {{ publication.title }} </span> </h4>
+            <br>
+            <p class="card-text">
+              {{ publication.content }}
+            </p>
+        
+            <a href="" class="card-link"> {{ publication.publisher }} </a>
+            <a href="" class="card-link"> {{ publication.year }} </a>
+            <a href="{{ publication.link }}" class="card-link"> {{ publication.link }} </a>
+            <a href="/profile/publication/{{ publication.pubId }}/edit" class="card-link btn btn-primary"> Edit </a>
+            <a href="#" id="test6" class="card-link btn btn-danger"> Delete </a>
+          </div>
+        </div>
+      {% endfor %}
 
-{% block user_last_pub %}
-  {% for publication in publications[-1:] %}
-    <div class="card card-primary card-outline">
-      <div class="card-body">
-        <h4 class="card-title"> {{ publication.title }} </h4>
-        <br>
-        <p class="card-text">
-          {{ publication.content }}
-        </p>
-    
-        <a href="#" class="card-link"> {{ publication.publisher }} </a>
-        <a href="#" class="card-link"> {{ publication.year }} </a>
-        <a href="{{ publication.link }}" class="card-link"> {{ publication.link }} </a>
+        <!-- /.card -->
       </div>
+      <!-- /.col-md-6 -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="m-0">Quick Start</h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">This will get you up and running!</h6>
+            <br>
+            <ul>
+              <li>Verify your email!</li>
+              <li>Add a profile picture!</li>
+              <li>Add a test publication!</li>
+              <li>Update your test publication!</li>
+              <li>Delete your test publication!</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Get Started!</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-md-6 -->
     </div>
-  {% endfor %}
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
 {% endblock %}
-

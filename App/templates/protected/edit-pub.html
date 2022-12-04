@@ -1,0 +1,201 @@
+{% extends "/protected/layout.html" %}
+{% block title %} Edit Publication | Author Dashboard | UWI Research Platform{% endblock %}
+{% block page %}Edit Publication{% endblock %}
+
+{{ super() }}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">Publications</li>
+<li class="breadcrumb-item active">Edit Publication</li>
+{% endblock %}
+
+{% block user_sidebar %}
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+      <img src="{{ url_for('static', filename='/imgs/user-icon-vector.jpg') }}" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+      <a href="#" class="d-block">{{ author.fname }} {{ author.lname }} </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar_menu %}
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Add icons to the links using the .nav-icon class
+         with font-awesome or any other icon font library -->
+    <li class="nav-item">
+      <a href="/profile/@{{ user.username }}" class="nav-link">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+          Publications
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>All Publications</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/profile/@{{ user.username }}/publication/add" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Add Publication</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-cog"></i>
+        <p>
+          Settings
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Profile</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+{% endblock %}
+
+{% block user_dash %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <!-- Left Column -->
+          <div class="col md-6">
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">Publication Details</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form method="POST" action="/profile/publication/{{ pub.pubId }}/edit">
+                  <div class="form-group">
+                    <label>Title</label>
+                    <input name="title" type="text" class="form-control" value="{{ pub.title }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" class="form-control" placeholder="{{ author.fname }} {{ author.lname }}" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label>Link</label>
+                    <input name="link" type="text" class="form-control" value="{{ pub.link }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Content</label>
+                    <textarea name="content" class="form-control" rows="3" value=""> {{ pub.content }} </textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Publisher</label>
+                    <input name="publisher" type="text" class="form-control" value="{{ pub.publisher }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Year</label>
+                    <input name="year" type="text" class="form-control" value="{{ pub.year }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Co-Authors</label>
+                    <div class="row">
+                      {% for ca in cas %}
+                      <div class="col-4">
+                        <input type="text" class="form-control" value="{{ ca.fname }} {{ ca.lname }}" disabled>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button name="update-pub" type="submit" class="btn btn-warning">Update</button>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- Right Column -->
+          <div class="col md-6">
+            <!-- Add Co-Author -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add Co-Author</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="POST" action="/profile/publication/{{ pub.pubId }}/edit">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" name="email" class="form-control" id="author_email" placeholder="Enter email">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button name="add-co" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            <!-- Remove Co-Author -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Remove Co-Author</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="POST" action="/profile/publication/{{ pub.pubId }}/edit">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button name="del-co" type="submit" class="btn btn-danger">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            <!-- Delete Publication -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Delete Publication</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="POST" action="/profile/publication/{{ pub.pubId }}/edit">
+                <div class="card-body">
+                  
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button name="del-pub" type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock %}
