@@ -7,6 +7,7 @@ from App.controllers import (
     get_all_authors_json,
     get_author_by_id,
     get_author_by_email,
+    update_author,
     get_user_by_id,
     get_user_by_username,
 )
@@ -65,7 +66,7 @@ def update_author_action():
     data = request.json
     author = get_author(data['id'])
     if author:
-        update_author(data['id'], data['fname'], data['lname'], data['email'], data['password'])
+        update_author(data['id'], data['fname'], data['lname'], data['email'], "", "")
         return jsonify({"message":"Author updated successfully!"})
     return jsonify({"message":"Author not found!"})
 
