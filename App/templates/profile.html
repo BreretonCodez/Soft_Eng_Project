@@ -9,6 +9,8 @@
     <br>
     <h3> {{ author.fname }} {{ author.lname }} <br> <a href="/author/@{{ user.username }}" style="font-size: large; line-height: 1px;">@{{ user.username }}</a></h3>
     <h5>Author <br> Publications: {{ author.publications | count }}</h5>
+    <h5>Institutions: {{ author.institution }} </h5>
+    <h5>Qualifications: {{ author.qualifications }}</h5>
 
     <div class="center">
         <h4>Publications</h4>
