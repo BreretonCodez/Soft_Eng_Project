@@ -45,7 +45,7 @@
                             {% if author.authorId == publication.author %}
                             {% if author.authorId == user.authorId %}
 
-                                Author: <a href="/author/{{user.username}}">{{author.fname}} {{author.lname}}</a> 
+                                Author: <a href="/author/@{{user.username}}">{{author.fname}} {{author.lname}}</a> 
 
                             {% endif %}
                             {% endif %}
