@@ -63,7 +63,7 @@ def create_author_action():
 @author_views.route('/api/authors', methods=['PUT'])
 def update_author_action():
     data = request.json
-    author = get_author(data['id'])
+    author = get_author_by_id(data['id'])
     if author:
         update_author(data['id'], data['fname'], data['lname'], data['email'], "", "")
         return jsonify({"message":"Author updated successfully!"})
@@ -72,7 +72,7 @@ def update_author_action():
 @author_views.route('/api/authors', methods=['DELETE'])
 def delete_author_action():
     data = request.json
-    author = get_author(data['id'])
+    author = get_author_by_id(data['id'])
     if author:
         delete_author(data['id'])
         return jsonify({"message":"Author deleted successfully!"})
