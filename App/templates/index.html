@@ -43,7 +43,7 @@
                             {% for author in authors  %}
                             {% if author.authorId == publication.author %}
 
-                                Author: <a href="/author/{{author.authorId}}">{{author.fname}} {{author.lname}}</a> 
+                                Author: <a href="/author/{{user.username}}">{{author.fname}} {{author.lname}}</a> 
 
                             {% endif %}
                             {% endfor %}
