@@ -8,6 +8,18 @@ def create_user(username, password, fname, lname, email):
     db.session.commit()
     return user
 
+def update_user(userId, authorId, username, password):
+    user = get_user_by_id(userId)
+    if user:
+        check = get_user_by_username(username)
+        if check == None:
+            user.username = username
+            user.authorId = authorId
+            user.password = password
+            db.session.add(user)
+            return db.session.commit()
+    return None
+
 ''' Deletes a User '''
 def delete_user(id):
     user = get_user_by_id(id)

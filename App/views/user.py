@@ -12,6 +12,8 @@ from App.controllers import (
     get_all_users_json,
     get_pubs_by_author,
     update_author,
+    update_user,
+    delete_user,
 )
 
 from App.controllers import *
@@ -125,66 +127,49 @@ def user_profile(username):
 
 # API ROUTES
 
-@user_views.route('/api/users')
-def client_app():
+@user_views.route('/api/users', methods=['GET'])
+def get_all_users_action():
     users = get_all_users_json()
     return jsonify(users)
 
-@user_views.route('/publications', methods=["GET"])
-def get_publications():
-    args = request.args
-    if not args:
-        pubs = get_all_publications_json()
-        return jsonify(pubs), 200
-    author_id = args.get("author")
-    query = args.get("query")
-    pubs = []
-    if author_id:
-        pubs = get_author_publications(author_id)
-    if query:
-        query = query.lower()
-        print(query)
-        pubs = filter(lambda pub: query in pub['title'].lower(), pubs)
-    return jsonify(list(pubs)), 200
-        
+@user_views.route('/api/users/id', methods=['GET'])
+def get_user_action():
+    users = get_user_by_id(id)
+    return jsonify(user)
 
-@user_views.route('/publications', methods=["POST"])
-@jwt_required()
-def post_publication():
-    data = request.get_json()
-    author_names = data['authors']
-    coauthor_names = data['coauthors']
-    authors = sum ( [get_author_by_name(name) for name in author_names], [] )
-    coauthors = sum ( [get_author_by_name(name) for name in coauthor_names], [] )
-    # return jsonify(author_names)
-    try:
-        new_pub = create_publication(data['title'], authors, coauthors)
-    except Exception as e:
-        return f'Could not create due to exception: {e.__class__}', 400
-    return new_pub.toJSON(), 201
+@user_views.route('/api/users', methods=['POST'])
+def create_user_action():
+    data = request.json
+    if get_user_by_username(data['username']):
+        return jsonify({"message":"Username already exists!"})
+    user = create_user(data['username'], data['password'], data['fname'], data['lname'], data['email'])
+    return jsonify({"message":"User created successfully!"})
 
-@user_views.route('/author', methods=["POST"])
-@jwt_required()
-def create_author_profile():
-    data = request.get_json()
-    # return jsonify(data)
+@user_views.route('/api/users', methods=['PUT'])
+def update_user_action():
+    data = request.json
+    user = get_user_by_id(data['id'])
+    if user:
+        update_user(data['id'], data['authorId'], data['username'], data['password'])
+        return jsonify({"message":"User updated successfully!"})
+    return jsonify({"message":"User not found!"})
+
+@user_views.route('/api/users', methods=['DELETE'])
+def delete_user_action():
+    data = request.json
+    user = get_user_by_id(data['id'])
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    return None
+
+@user_views.route('/user/author', methods=["POST"])
+def get_user_author():
+    data = request.json()
+    user = get
     try:
         new_author = create_author(data['name'], data['dob'], data['qualifications'])
     except Exception as e:
         return f'Could not create due to exception: {e.__class__}', 400 
     return new_author.toJSON(), 201
 
-@user_views.route('/author', methods=["GET"])
-def get_author_profile():
-    authors = get_all_authors_json()
-    return jsonify(authors)
-
-@user_views.route('/pubtree', methods=['GET'])
-def get_pub_tree():
-    args = request.args
-    author_id = args.get('author_id')
-    if not author_id:
-        return "Must provide ID.", 400
-
-    pubs = get_author_publications(author_id)
-    return jsonify(pubs)

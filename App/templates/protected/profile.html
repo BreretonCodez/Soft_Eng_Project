@@ -159,9 +159,7 @@
             <a href="" class="card-link"> {{ publication.year }} </a>
             <a href="{{ publication.link }}" class="card-link"> {{ publication.link }} </a>
             <a href="/profile/publication/{{ publication.pubId }}/edit" class="card-link btn btn-primary"> Edit </a>
-            <form method="POST" action="/profile/publication/{{ publication.pubId }}/edit">
-              <input name="del-pub" type="submit">
-            </form>
+            <a href="" class="card-link btn btn-danger">Delete</a>
             
           </div>
         </div>
