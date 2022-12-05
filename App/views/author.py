@@ -6,6 +6,7 @@ from App.controllers import (
     get_all_authors,
     get_all_authors_json,
     get_author_by_id,
+    get_author_by_email,
     get_user_by_id,
     get_user_by_username,
 )
@@ -53,9 +54,10 @@ def get_author_action():
 @author_views.route('/api/authors', methods=['POST'])
 def create_author_action():
     data = request.json
-    if get_author_email(data['email']):
+    get_author_by
+    if get_author_by_email(data['email']):
         return jsonify({"message":"Author email already exists!"})
-    author = create_author(data['fname'], data['lname'], data['email'], data['password'])
+    author = create_author(data['fname'], data['lname'], data['email'])
     return jsonify({"message":"Author created successfully!"})
 
 @author_views.route('/api/authors', methods=['PUT'])
