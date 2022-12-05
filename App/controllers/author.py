@@ -2,8 +2,8 @@ from App.models import Author, User
 from App.database import db
 
 ''' Creates a new Author '''
-def create_author(fname, lname, username, email, password):
-    newAuthor = Author(fname=fname, lname=lname, username=username, email=email, password=password)
+def create_author(fname, lname, email):
+    newAuthor = Author(fname=fname, lname=lname, email=email)
     db.session.add(newAuthor)
     db.session.commit()
     return newAuthor
