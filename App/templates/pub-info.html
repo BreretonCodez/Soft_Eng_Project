@@ -42,7 +42,7 @@
                     {% if u.authorId == coauthor.authorId %}
                     <a href="/author/{{coauthor.authorId}}">{{coauthor.fname}} {{coauthor.lname}}</a> <br><br>
                     {% endif %}
-                    {{ endfor }}
+                    {% endfor %}
                     {{publication.content}} <br>
                       
                 </div>
