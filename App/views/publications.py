@@ -8,6 +8,7 @@ from App.controllers import (
     get_pub_by_id,
     get_all_pubs,
     update_pub,
+    get_all_users,
     add_pub_co_author,
     del_pub_co_author,
     get_all_pubs_json,
@@ -34,7 +35,8 @@ def pub_info(id):
     publication = get_pub_by_id(id)
     author = get_author_by_id(publication.author)
     user = get_user_by_author(author.authorId)
-    return render_template('pub-info.html', publication=publication, author=author, user=user)
+    users = get_all_users()
+    return render_template('pub-info.html', publication=publication, author=author, user=user, us=users)
 
 # AUTHENTICATED ROUTES
 

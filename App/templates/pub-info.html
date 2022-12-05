@@ -10,7 +10,11 @@
     <h5>Author: <a href="/author/@{{user.username}}"> {{ author.fname }} {{ author.lname }}</a> </h5>
     <h5>Co-Authors: 
         {% for coauthor in publication.coauthors %}
-        <a href="/author/{{coauthor.authorId}}"> {{ coauthor.fname }} {{ coauthor.lname }}</a>, 
+        {% for u in us %}
+        {% if u.authorId == coauthor.authorId %}
+        <a href="/author/{{user.username}}"> {{ coauthor.fname }} {{ coauthor.lname }}</a>,
+        {% endif %}
+        {% endfor %} 
         {% endfor %}
     </h5>
 
@@ -34,7 +38,11 @@
                     <a href="/publication/{{publication.pubId}}">{{publication.title}}</a>
                 </p>
                 <div class="card-content">
+                    {% for u in us %}
+                    {% if u.authorId == coauthor.authorId %}
                     <a href="/author/{{coauthor.authorId}}">{{coauthor.fname}} {{coauthor.lname}}</a> <br><br>
+                    {% endif %}
+                    {{ endfor }}
                     {{publication.content}} <br>
                       
                 </div>
