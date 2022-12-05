@@ -48,7 +48,7 @@ def edit_pub(id):
         if not data['title'] or not data['content'] or not data['link'] or not data['publisher'] or not data['year']:
             flash('Please fill all data fields!')
             redirect(url_for('.edit_pub', id=id))
-        update_pub(id, data['title'], data['content'], data['link'], data['publisher'], data['year'])
+        update_pub(id, data['title'], author.authorId, data['content'], data['link'], data['publisher'], data['year'])
 
     if "add-co" in data and request.method == 'POST':
         email = data['email']
