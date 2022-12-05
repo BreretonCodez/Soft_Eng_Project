@@ -49,6 +49,7 @@ def edit_pub(id):
             flash('Please fill all data fields!')
             redirect(url_for('.edit_pub', id=id))
         update_pub(id, data['title'], data['content'], data['link'], data['publisher'], data['year'])
+
     if "add-co" in data and request.method == 'POST':
         email = data['email']
         coa = get_author_by_email(email)
@@ -57,6 +58,7 @@ def edit_pub(id):
             redirect(url_for('.edit_pub', id=id))
         add_pub_co_author(id, coa.authorId)
         flash('Co-Author added successfully!')
+
     if "del-co" in data and request.method == 'POST':
         email = data['email']
         if email:
@@ -66,6 +68,7 @@ def edit_pub(id):
                 redirect(url_for('.edit_pub', id=id))
             del_pub_co_author(id, coa.authorId)
             flash('Co-Author added successfully!')
+            
     if "del-pub" in data and request.method == 'POST':
         delete_publication(pub.pubId)
         flash('Publication deleted successfully!')

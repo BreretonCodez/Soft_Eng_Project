@@ -5,3 +5,8 @@ body {
 .login-card {
     background-color: beige;
 }
+
+nav {
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+} 

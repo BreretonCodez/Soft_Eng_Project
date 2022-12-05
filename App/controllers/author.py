@@ -16,6 +16,19 @@ def delete_author(id):
         db.session.commit()
     return None
 
+''' Updates an author '''
+def update_author(id, fname, lname, email, institutions, qualifications):
+    author = get_author_by_id(id)
+    if author:
+        author.fname = fname
+        author.lname = lname
+        author.email = email
+        author.institutions = institutions
+        author.qualifications = qualifications
+        db.session.add(author)
+        return db.session.commit()
+    return None
+
 ''' Searches for an Author '''
 def search_author(search):
     return Author.query.filter(

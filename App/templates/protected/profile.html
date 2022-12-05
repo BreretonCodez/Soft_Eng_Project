@@ -64,7 +64,7 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/profile/@{{ user.username }}/edit" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Profile</p>
           </a>
@@ -159,7 +159,10 @@
             <a href="" class="card-link"> {{ publication.year }} </a>
             <a href="{{ publication.link }}" class="card-link"> {{ publication.link }} </a>
             <a href="/profile/publication/{{ publication.pubId }}/edit" class="card-link btn btn-primary"> Edit </a>
-            <a href="#" id="test6" class="card-link btn btn-danger"> Delete </a>
+            <form method="POST" action="/profile/publication/{{ publication.pubId }}/edit">
+              <input name="del-pub" type="submit">
+            </form>
+            
           </div>
         </div>
       {% endfor %}

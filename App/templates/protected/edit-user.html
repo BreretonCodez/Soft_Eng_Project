@@ -1,0 +1,140 @@
+{% extends "/protected/layout.html" %}
+{% block title %} Add Publication | Author Dashboard | UWI Research Platform{% endblock %}
+{% block page %}Add Publication{% endblock %}
+
+{{ super() }}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">Publications</li>
+<li class="breadcrumb-item active">Add Publication</li>
+{% endblock %}
+
+{% block user_sidebar %}
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+      <img src="{{ url_for('static', filename='/imgs/user-icon-vector.jpg') }}" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+      <a href="#" class="d-block">{{ author.fname }} {{ author.lname }} </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar_menu %}
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Add icons to the links using the .nav-icon class
+         with font-awesome or any other icon font library -->
+    <li class="nav-item">
+      <a href="/profile/@{{ user.username }}" class="nav-link">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+          Publications
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="/profile/@{{ user.username }}/publications" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>All Publications</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/profile/@{{ user.username }}/publication/add" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Add Publication</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-cog"></i>
+        <p>
+          Settings
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="/profile/@{{ user.username }}/edit" class="nav-link active">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Profile</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+{% endblock %}
+
+{% block user_dash %}
+<div class="content">
+  <div class="container-fluid">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col md-6">
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Your Profile</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <form method="POST" action="/profile/@{{ user.username }}/edit">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input name="fname" type="text" class="form-control" value="{{ user.username }}" disabled>
+                </div>
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input name="fname" type="text" class="form-control" value="{{ author.fname }}">
+                </div>
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input name="lname" type="text" class="form-control" value="{{ author.lname }}">
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input name="email" type="text" class="form-control" value="{{ author.email }}">
+                </div>
+                <div class="form-group">
+                  <label>Institution</label>
+                  {% if author.institution == None %}
+                  <input name="institution" type="text" class="form-control" value="">
+                  {% else %}
+                  <input name="institution" type="text" class="form-control" value="{{ author.institution }}">
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  <label>Qualifications</label>
+                  {% if author.qualifications == None %}
+                  <input name="qualifications" type="text" class="form-control" value="">
+                  {% else %}
+                  <input name="qualifications" type="text" class="form-control" value="{{ author.qualifications }}">
+                  {% endif %}
+                </div>
+                <div class="card-footer">
+                  <button name="update-author" type="submit" class="btn btn-info">Update Profile</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- Right Column -->
+        <div class="col md-6">
+
+        </div>
+      </div>
+      <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+{% endblock %}

@@ -64,7 +64,7 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/profile/@{{ user.username }}/edit" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Profile</p>
           </a>
@@ -94,7 +94,7 @@
                   </div>
                   <div class="form-group">
                     <label>Author</label>
-                    <input type="text" class="form-control" placeholder="{{ author.fname }} {{ author.lname }}" disabled>
+                    <input type="text" class="form-control" value="{{ author.fname }} {{ author.lname }}" disabled>
                   </div>
                   <div class="form-group">
                     <label>Link</label>

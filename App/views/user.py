@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, session
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, session, redirect, flash, url_for
 from flask_login import login_required, current_user
 from flask_jwt import jwt_required
 # for exceptions
@@ -11,13 +11,14 @@ from App.controllers import (
     get_all_users,
     get_all_users_json,
     get_pubs_by_author,
+    update_author,
 )
 
 from App.controllers import *
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-# AUTHENTICATION ROUTES
+# AUTHENTICATED ROUTES
 
 @user_views.route('/login', methods=['GET','POST'])
 def login():
@@ -62,6 +63,19 @@ def register():
         return redirect("/login")
     else: 
         return render_template("register.html")
+
+@user_views.route("/profile/@<username>/edit", methods=['GET', 'POST'])
+def edit_user_backend(username):
+    user = get_user_by_username(username)
+    author = get_author_by_id(user.authorId)
+    data = request.form
+    if "update-author" in data and request.method == 'POST':
+        update_author(author.authorId, data['fname'], data['lname'], data['email'], data['institution'], data['qualifications'])
+        flash('Profile updated successfully!')
+        return render_template('/protected/edit-user.html', user=user, author=author)
+
+    
+    return render_template('/protected/edit-user.html', user=user, author=author)
 
 '''@user_views.route('/signup', methods=["POST"])
 def create_user_route():
