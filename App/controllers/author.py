@@ -23,7 +23,7 @@ def update_author(id, fname, lname, email, institutions, qualifications):
         author.fname = fname
         author.lname = lname
         author.email = email
-        author.institutions = institutions
+        author.institution = institutions
         author.qualifications = qualifications
         db.session.add(author)
         return db.session.commit()

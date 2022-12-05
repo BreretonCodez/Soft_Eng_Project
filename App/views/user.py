@@ -65,6 +65,7 @@ def register():
         return render_template("register.html")
 
 @user_views.route("/profile/@<username>/edit", methods=['GET', 'POST'])
+@login_required
 def edit_user_backend(username):
     user = get_user_by_username(username)
     author = get_author_by_id(user.authorId)
