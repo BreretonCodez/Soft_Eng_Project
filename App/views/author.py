@@ -45,7 +45,7 @@ def get_all_authors_action():
 @author_views.route('/api/authors/id', methods=['GET'])
 def get_author_action():
     data = request.json
-    author = get_author(data['id'])
+    author = get_author_by_id(data['id'])
     if author:
         return author.toJSON()
     return jsonify({"message":"Author not found!"})
