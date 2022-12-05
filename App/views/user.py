@@ -134,7 +134,7 @@ def get_all_users_action():
 
 @user_views.route('/api/users/id', methods=['GET'])
 def get_user_action():
-    users = get_user_by_id(id)
+    user = get_user_by_id(id)
     return jsonify(user)
 
 @user_views.route('/api/users', methods=['POST'])
@@ -161,15 +161,30 @@ def delete_user_action():
     if user:
         db.session.delete(user)
         db.session.commit()
-    return None
+        return jsonify({"message":"User deleted successfully!"})
+    return jsonify({"message":"User not found"})
 
-@user_views.route('/user/author', methods=["POST"])
+@user_views.route('/user/author', methods=['GET'])
 def get_user_author():
     data = request.json()
-    user = get
-    try:
-        new_author = create_author(data['name'], data['dob'], data['qualifications'])
-    except Exception as e:
-        return f'Could not create due to exception: {e.__class__}', 400 
-    return new_author.toJSON(), 201
+    user = get_user_by_id(data['id'])
+    if user:
+        ai = get_author_by_id(user.authorId)
+        if ai:
+            author = user.author.toJSON()
+            return author
+        jsonify({"message":"User has no author!"})
+    return jsonify({"message":"User not found!"})
+
+    
+    
+    
+    
+    
+    
+'''try:
+    new_author = create_author(data['name'], data['dob'], data['qualifications'])
+except Exception as e:
+    return f'Could not create due to exception: {e.__class__}', 400 
+return new_author.toJSON(), 201'''
 

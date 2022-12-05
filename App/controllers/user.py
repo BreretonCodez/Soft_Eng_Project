@@ -38,7 +38,7 @@ def search_user(search):
 ''' Author Accessors by parameter '''
 
 def get_user_by_id(userId):
-    return User.query.filter_by(userId).first()
+    return User.query.filter_by(userId=userId).first()
 
 def get_user_by_username(username):
     return User.query.filter_by(username=username).first()
