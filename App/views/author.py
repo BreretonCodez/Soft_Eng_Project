@@ -55,7 +55,6 @@ def get_author_action():
 @author_views.route('/api/authors', methods=['POST'])
 def create_author_action():
     data = request.json
-    get_author_by
     if get_author_by_email(data['email']):
         return jsonify({"message":"Author email already exists!"})
     author = create_author(data['fname'], data['lname'], data['email'])
