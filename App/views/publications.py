@@ -127,7 +127,7 @@ def create_pub_action():
 @pub_views.route('/api/publications', methods=['PUT'])
 def update_pub_action():
     data = request.json
-    pub = get_pub(data['id'])
+    pub = get_pub_by_id(data['id'])
     if pub:
         update_pub(data['id'], data['name'], data['author'], data['content'], data['citation'])
         return jsonify({"message":"Publication updated successfully!"})
@@ -136,7 +136,7 @@ def update_pub_action():
 @pub_views.route('/api/publications', methods=['DELETE'])
 def delete_pub_action():
     data = request.json
-    pub = get_pub(data['id'])
+    pub = get_pub_by_id(data['id'])
     if pub:
         delete_publication(data['id'])
         return jsonify({"message":"Publication deleted successfully!"})
@@ -145,7 +145,7 @@ def delete_pub_action():
 @pub_views.route('/api/publications/author', methods=['GET'])
 def get_author_pubs_action():
     data = request.json
-    author = get_author(data['author'])
+    author = get_author_by_id(data['author'])
     if author:
         pubs = get_pub_by_author(data['author'])
         return jsonify(pubs)
@@ -154,7 +154,7 @@ def get_author_pubs_action():
 @pub_views.route('/api/publications/id', methods=['GET'])
 def get_pub_action():
     data = request.json
-    pub = get_pub(data['id'])
+    pub = get_pub_by_id(data['id'])
     if pub:
         return pub.toJSON()
     return jsonify({"message":"Publication not found!"})
@@ -162,7 +162,7 @@ def get_pub_action():
 @pub_views.route('/api/publication/add-co-author', methods=['PUT'])
 def add_co_author_action():
     data = request.json
-    pub = get_pub(data['id'])
+    pub = get_pub_by_id(data['id'])
     if pub:
         add_pub_co_author(data['id'], data['author'])
         return jsonify({"message":"Co-Author added to Publication successfully!"})
