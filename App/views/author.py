@@ -8,6 +8,7 @@ from App.controllers import (
     get_author_by_id,
     get_author_by_email,
     update_author,
+    delete_author,
     get_user_by_id,
     get_user_by_username,
 )
