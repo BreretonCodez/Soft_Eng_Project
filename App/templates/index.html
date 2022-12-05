@@ -41,11 +41,15 @@
                         <a href="/publication/{{publication.pubId}}"><span class="title">{{publication.title}}</span></a>
                         <p>
                             {% for author in authors  %}
+                            {% for user in users %}
                             {% if author.authorId == publication.author %}
+                            {% if author.authorId == user.authorId %}
 
                                 Author: <a href="/author/{{user.username}}">{{author.fname}} {{author.lname}}</a> 
 
                             {% endif %}
+                            {% endif %}
+                            {% endfor %}
                             {% endfor %}
                             <br>
                             Co-Authors:
