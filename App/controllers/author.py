@@ -31,9 +31,23 @@ def update_author(id, fname, lname, email, institutions, qualifications):
 
 ''' Searches for an Author '''
 def search_author(search):
-    return Author.query.filter(
-        Author.name.like( '%'+search+'%')
+    data = Author.query.filter(
+        Author.fname.ilike( '%'+search+'%')
     )
+
+    print(data)
+
+    if not data:
+        data = Author.query.filter(
+            Author.lname.like( '%'+search+'%')
+        )
+    
+    if not data:
+        data = Author.query.filter(
+            Author.email.like( '%'+search+'%')
+        )
+    
+    return data
 
 # Searches for User by Author ID
 def find_user_by_author_id(id):

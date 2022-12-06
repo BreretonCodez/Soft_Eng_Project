@@ -14,9 +14,14 @@
     <div class="d-flex my-5 p-3 text-white rounded shadow-md bg-dark">
       <div class="row align-items-end">
         <form class="d-flex col-md-12">
-          <input class="form-control me-2" type="search" value="{% if search %} {{search}} {% endif %}" placeholder="Search" aria-label="Search">
+          {% if search %}
+          <input class="form-control me-2" name="search" type="search" value="{{search}}" aria-label="Search">
+          {% else %}
+          <input class="form-control me-2" name="search" type="search" value="" placeholder="Search" aria-label="Search">
+          {% endif %}
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        
       </div>
     </div>
   </div>

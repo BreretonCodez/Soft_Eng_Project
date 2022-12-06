@@ -60,7 +60,7 @@ def del_pub_co_author(id, co_author):
 ''' Searches for a Publication '''
 def search_pub(search):
     return Publication.query.filter(
-        Publication.title.like( '%'+search+'%' )
+        Publication.title.ilike( '%'+search+'%' )
     )
 
 ''' Publication Getters by parameter '''
