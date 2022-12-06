@@ -4,26 +4,32 @@
 
 {{ super() }}
 
+{% block active1 %}text-white{% endblock %}
+{% block active2 %}text-white{% endblock %}
+{% block active3 %}text-white{% endblock %}
+
 {% block content %}
-<main class="container" style="margin-top: 25vh;">
-    <div class="container">
-        <form class="card col s12 login-card" id="loginForm" method="POST" action="/login" style="padding:1em; border-radius: 15px;">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input name="username" type="text" class="validate">
-                    <label for="username">Username</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input name="password" type="password" class="validate">
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <div class="card-action center">
-                <input type="submit" class="indigo-text text-darken-4 btn orange lighten-1" style="border-radius: 15px;" value="Login">
-            </div>
-        </form>
-    </div>
-</main>
+<div class="py-4"></div>
+<div class="form-signin text-center py-5">
+    <h3>Login</h3>
+    <form method="POST" action="/login">
+        <div class="form-floating">
+          <input name="username" type="text" class="form-control" id="floatingInput">
+          <label for="username">Username</label>
+        </div>
+        <div class="form-floating">
+          <input name="password" type="password" class="form-control">
+          <label for="password">Password</label>
+        </div>
+    
+        <div class="checkbox mb-3">
+          <label>
+            <input name="remember" type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+        <p class="mt-5 mb-3 text-muted">v0.7.4</p>
+    </form>
+</div>
+<div class="py-4 mb-1"></div>
 {% endblock %}

@@ -1,12 +1,85 @@
 {% extends "layout.html" %}
-{% block title %}UWI Research Platform{% endblock %}
+{% block title %}Home · UWI Research Platform{% endblock %}
 {% block page %}UWI Research Platform{% endblock %}
 
 {{ super() }}
 
+{% block active1 %}text-muted{% endblock %}
+{% block active2 %}text-white{% endblock %}
+{% block active3 %}text-white{% endblock %}
+
 {% block content %}
 
-    <form class="row">
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-light rounded-3 border">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">UWI Research Platform</h1>
+            <p class="col-md-8 fs-4">Be Bold. Face the world. Let your ideas shine. The UWI Reseach Platform exhibits the amazing ideas and thought processes that distinguishes us from everyone else. The passion and the drive that makes the UWI dedicated to all our partners, stakeholders, researchers and the minds that make this possible.</p>
+            <button class="btn btn-warning btn-lg" type="button"><a class="text-dark text-decoration-none" href="/register">Publish With Us!</a></button>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Publications</h2>
+                <p>View our list of publications and research from our list of esteemed and highly-educated authors, staff, alum and researchers.</p>
+                <button class="btn btn-outline-light" type="button"><a class="text-white text-decoration-none" href="/publications">View Publications</a></button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Authors</h2>
+                <p>View our list of esteemed and highly-educated authors, staff, alum and researchers.</p>
+                <button class="btn btn-outline-light" type="button"><a class="text-white text-decoration-none" href="/authors">View Authors</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <br>
+    <hr>
+    <br>
+    <h3 class="text-center">Latest Publications</h3>
+    <br>
+    <div class="container">
+        <div class="row mb-2">
+            {% for publication in publications[-6:] %}
+            <div class="col-md-6">
+                <div class="row g-0 border border-3 rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="mb-0"><a class="text-decoration-none" href="/publication/{{publication.pubId}}"><span class="title text-dark"> <span class="fa fa-book text-lg"></span> {{publication.title}}</span></a></h3>
+                        <br>
+                        {% for author in authors  %}
+                        {% for user in users %}
+                        {% if author.authorId == publication.author %}
+                        {% if author.authorId == user.authorId %}
+
+                        <div class="mb-1 text-dark"> Author: <a class="text-muted text-decoration-none text-muted" href="/author/@{{user.username}}">{{author.fname}} {{author.lname}}</a></div> 
+
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        <p class="mb-auto">Co-Authors:
+                            {% for coauthor in publication.coauthors %}
+                            {% for user in users %}
+                            {% if coauthor.authorId == user.authorId %}
+                            <a class="text-decoration-none text-muted" href="/author/@{{user.username}}">{{coauthor.fname}} {{coauthor.lname}}</a>,
+                            {% endif %} 
+                            {% endfor %}
+                            {% endfor %}
+                        </p>
+                        <p class="card-text mb-auto">{{publication.content}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+    <!-- <form class="row">
         <div class="row">
             <div class="col s12 m8">
                 <div class="card-panel">
@@ -77,6 +150,6 @@
 
             </section>
         </section>
-    </main>
+    </main> -->
       
 {% endblock %}

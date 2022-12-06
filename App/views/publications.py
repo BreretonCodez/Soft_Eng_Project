@@ -7,6 +7,8 @@ from App.controllers import (
     create_publication,
     get_pub_by_id,
     get_all_pubs,
+    get_all_authors,
+    get_all_users,
     update_pub,
     get_all_users,
     add_pub_co_author,
@@ -19,6 +21,7 @@ from App.controllers import (
     get_user_by_username,
     get_pubs_by_author,
     delete_publication,
+    search_pub,
 )
 
 pub_views = Blueprint('pub_views', __name__, template_folder='../templates')
@@ -27,8 +30,13 @@ pub_views = Blueprint('pub_views', __name__, template_folder='../templates')
 
 @pub_views.route('/publications', methods=['GET'])
 def get_pub_page():
+    search = request.args.get('search')
     publications = get_all_pubs()
-    return render_template('publications.html', publications=publications)
+    authors = get_all_authors()
+    users = get_all_users()
+    if search:
+        publications = search_pub(search)
+    return render_template('publications.html', publications=publications, authors=authors, users=users)
 
 @pub_views.route('/publication/<id>')
 def pub_info(id):

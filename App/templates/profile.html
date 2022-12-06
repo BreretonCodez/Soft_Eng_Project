@@ -4,33 +4,77 @@
 
 {{ super() }}
 
+{% block active1 %}text-white{% endblock %}
+{% block active2 %}text-white{% endblock %}
+{% block active3 %}text-white{% endblock %}
+
 {% block content %}
-
-    <br>
-    <h3> {{ author.fname }} {{ author.lname }} <br> <a href="/author/@{{ user.username }}" style="font-size: large; line-height: 1px;">@{{ user.username }}</a></h3>
-    <h5>Author <br> Publications: {{ author.publications | count }}</h5>
-    <h5>Institutions: {{ author.institution }} </h5>
-    <h5>Qualifications: {{ author.qualifications }}</h5>
-
-    <div class="center">
-        <h4>Publications</h4>
-        <div class="row">
-            <div class="col s12">
-                <div class="row" style="overflow-y: scroll; height:82vh">
-
-                    {% for publication in author.publications %}
-                    <ul class="collection">
-                        <li class="collection-item avatar">
-                            <i class="material-icons circle">folder</i>
-                            <a href="/publication/{{publication.pubId}}"><span class="title">{{publication.title}}</span></a>
-                            <p>{{publication.content}} </p>
-                        </li>
-                    </ul>
-                    {% endfor %}
-
+<section class="h-100 bg-light">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+                <div class="card">
+                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                            <img src="{{ url_for('static', filename='/imgs/user-icon-vector.jpg') }}"
+                                alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                style="width: 150px; z-index: 1">
+                        </div>
+                        <div class="ms-3" style="margin-top: 130px;">
+                            <h5>{{author.fname}} {{author.lname}} </h5>
+                            <p> @{{user.username}} </p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <div class="d-flex justify-content-end text-center py-1">
+                            <div>
+                                <p class="mb-1 h5">{{author.publications | count}}</p>
+                                <p class="small text-muted mb-0">Publications</p>
+                            </div>
+                            <div class="px-3">
+                                <p class="mb-1 h5">0</p>
+                                <p class="small text-muted mb-0">Co-Authors</p>
+                            </div>
+                            <div>
+                                <p class="mb-1 h5">0</p>
+                                <p class="small text-muted mb-0">Appearances</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 text-black">
+                        <div class="mb-5">
+                            <p class="lead fw-normal mb-1">About</p>
+                            <div class="p-4" style="background-color: #f8f9fa;">
+                                {% if author.qualifications == None %}
+                                <p class="font-italic mb-1">Qualifications: None Shared</p>
+                                {% else %}
+                                <p class="font-italic mb-1">Qualifications: {{author.qualifications}}</p>
+                                {% endif %}
+                                {% if author.institution == None %}
+                                <p class="font-italic mb-0">Institution: None Shared</p>
+                                {% else %}
+                                <p class="font-italic mb-0">Institution: {{author.institution}}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="lead fw-normal mb-0">Publications: </p>
+                        </div>
+                        <div class="row g-2">
+                            {% for pub in author.publications %}
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{pub.title}}</h5>
+                                  <p class="card-text">{{pub.content}}</p>
+                                  <a href="/publication/{{pub.pubId}}" class="btn btn-primary">Read</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-     
+</section>
 {% endblock %}

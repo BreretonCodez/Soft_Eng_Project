@@ -1,36 +1,43 @@
-<!doctype html>
+<!Doctype html>
 <html>
   <head>
-  
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UWI Research Platform">
+    <meta name="author" content="Micah Brereton and D-DOS Software">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ url_for('static', filename='/dist/css/bootstrap.min.css') }}" rel="stylesheet"> 
+    <link href="{{ url_for('static', filename='frontend.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/plugins/fontawesome-free/css/all.min.css') }}">
+
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
      <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% block title %}{% endblock %}</title>
 
   </head>
-  <body class="grey lighten-4">
-    <nav class="indigo darken-4">
-      <div class="nav-wrapper">
-        <a href="#!" class="brand-logo left" style="margin-left: 15vw;">
-          {% block page %}{% endblock %}
-          <!-- <img style="padding-top: 7px; padding-bottom: -10px;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpadf.org%2Fwp-content%2Fuploads%2F2020%2F07%2FUWI-Logo.jpg&f=1&nofb=1&ipt=1f6345f5a76e4c4b5c9032022c952f8370cd8139cf6af9973d61fa510f4e5a2f&ipo=images" alt="uwi_logo" width="50" height="50"> -->
-        </a>
-        <div class="nav-wrapper">
-            <ul id="nav-mobile" class="right">
-                <li><a href="/">Home</a></li>
-                <!-- <li><a href="/authors">Authors Jinja</a></li> -->
-                <li><a href="/publications">Publications</a></li>
-                <!-- <li><a href="/static/authors">Authors JS</a></li> -->
-                <li><button class="waves-effect waves-light btn orange lighten-1" style="padding-left: 1px; padding-right: 1px; margin-right: 10px; border-radius: 15px;"><a href="/login">Login</a></button></li>
-                <li><button class="waves-effect waves-light btn orange lighten-1" style="padding-left: 1px; padding-right: 1px; margin-right: 15vw; border-radius: 15px;"><a href="/register">Register</a></button></li>
-            </ul>
+  <body class="bg-white">
+    <header class="p-3 bg-dark text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
+          <a href="/" class="d-flex align-items-center mb-2 mb-md-0 text-light text-decoration-none">
+            <span class="" style="font-size: large;">UWI Research Platform</span>
+          </a>
+  
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="/" class="nav-link px-2 {% block active1 %}{% endblock %}">Home</a></li>
+              <li><a href="/publications" class="nav-link px-2 {% block active2 %}{% endblock %}">Publications</a></li>
+              <li><a href="/authors" class="nav-link px-2 {% block active3 %}{% endblock %}">Authors</a></li>
+          </ul>
+  
+          <div class="text-end">
+            <button type="button" class="btn btn-outline-light me-2"><a href="/login" class="text-decoration-none text-white">Login</a></button>
+            <button type="button" class="btn btn-warning"><a href="/register" class="text-decoration-none text-dark">Register</a></button>
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
     
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -45,10 +52,14 @@
     </nav>
     {% endif %}
     {% endwith %}
-
-    <div class="container" id="content">{% block content %}{% endblock %}</div>
-    <p class="center">v0.7.4</p>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer mt-auto bg-dark text-light py-3">
+      <div class="container text-center text-white">
+          <span class="text-muted">Copyright &copy; <a href="/" class="text-reset">UWI Research Platform</a>. All Rights Reserved. v1.0.0</p></span>
+      </div>
+    </footer>
+    <script src="{{ url_for('static', filename='/dist/js/bootstrap.bundle.min.js') }}"></script>
   </body>
 </html>

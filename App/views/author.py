@@ -4,10 +4,13 @@ from flask_jwt import jwt_required
 from App.controllers import (
     create_author, 
     get_all_authors,
+    get_all_pubs,
+    get_all_users,
     get_all_authors_json,
     get_author_by_id,
     get_author_by_email,
     update_author,
+    search_author,
     delete_author,
     get_user_by_id,
     get_user_by_username,
@@ -20,8 +23,13 @@ author_views = Blueprint('author_views', __name__, template_folder='../templates
 # Jinja Routes
 @author_views.route('/authors', methods=['GET'])
 def get_authors_page():
+    search = request.args.get('search')
     authors = get_all_authors()
-    return render_template('authors.html', authors=authors)
+    users = get_all_users()
+    pubs = get_all_pubs()
+    if search:
+        authors = search_author(search)
+    return render_template('authors.html', authors=authors, users=users, pubs=pubs)
 
 @author_views.route('/author/@<username>', methods=['GET'])
 def author_profile(username):
