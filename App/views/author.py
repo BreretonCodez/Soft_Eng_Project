@@ -35,7 +35,19 @@ def get_authors_page():
 def author_profile(username):
     user = get_user_by_username(username)
     author = get_author_by_id(user.authorId)
-    return render_template('profile.html', user=user, author=author)
+    pubs = author.publications
+    cas = 0
+    for pub in pubs:
+        for ca in pub.coauthors:
+            cas = cas + 1
+
+    allp = get_all_pubs()
+    app = 0
+    for p in allp:
+        for ca in p.coauthors:
+            if author.authorId == ca.authorId:
+                app = app + 1
+    return render_template('profile.html', user=user, author=author, cas=cas, app=app)
 
 '''@author_views.route('/author/<id>', methods=['GET'])
 def author_profile2(id):
