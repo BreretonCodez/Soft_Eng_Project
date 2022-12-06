@@ -35,13 +35,18 @@
                     <div class="d-flex justify-content-start align-items-center">
                         {% for ca in publication.coauthors %}
                         {% for pub in ca.publications %}
+                        {% for u in us %}
+                        {% if ca.authorId == u.authorId %}
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                   <h5 class="card-title">{{pub.title}}</h5>
+                                  Author: <a href="/author/@{{u.username}}" class="text-dark text-decoration-text">{{ca.fname}} {{ca.lname}}</a>
                                   <p class="card-text">{{pub.content}}</p>
                                   <a href="/publication/{{pub.pubId}}" class="btn btn-warning">Read</a>
                                 </div>
                             </div>
+                        {% endif %}
+                        {% endfor %}
                         {% endfor %}
                         {% endfor %}
                     </div>
