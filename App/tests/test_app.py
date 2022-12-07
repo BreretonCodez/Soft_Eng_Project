@@ -83,7 +83,7 @@ class PublicationUnitTests(unittest.TestCase):
             and publication.link=="comp.sci"
             and publication.content=="Computer Science BSc" 
             and publication.publisher=="UWI"
-            and publication.author==author.author_id 
+            and publication.author==author.authorId 
             and publication.coauthors==coauthor
         )
 
@@ -96,7 +96,7 @@ class PublicationUnitTests(unittest.TestCase):
         self.assertDictEqual(publication_json, {
             "pubid": None,
             "title": "Intro to Computer Science",
-            "author": author.author_id,
+            "author": author.authorId,
             "coauthors": [coauthor.toJSON() for coauthor in coauthors],
             "link": "comp.sci",
             "content": "Computer Science BSc",
