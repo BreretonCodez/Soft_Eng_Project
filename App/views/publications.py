@@ -103,13 +103,20 @@ def add_pub_backend(username):
     author = get_author_by_id(user.authorId)
     if request.method == 'POST':
         data = request.form
-        if not data['title'] or data['link'] or data['content'] or data['publisher'] or data['year']:
+        if not data['title'] or not data['link'] or not data['content'] or not data['publisher'] or not data['year']:
             flash('Please enter data for all fields!')
 
+        if data['year']:
+            year = data['year']
+            max = 4
+            if len(year) != max:
+                flash('Please check your publication year!')
+                return render_template('/protected/add-pub.html', user=user, author=author)
+
         create_publication(data['title'], user.authorId, data['link'], data['content'], data['publisher'], data['year'])
+        flash('Publication added successfully!')
         return redirect(url_for('.get_all_pubs_backend', username=user.username))
 
-    flash('Publication added successfully!')
     return render_template('/protected/add-pub.html', user=user, author=author)
 
 
@@ -129,7 +136,7 @@ def get_all_pubs_action():
 @pub_views.route('/api/publications', methods=['POST'])
 def create_pub_action():
     data = request.json
-    pub = create_publication(data['name'], data['author'], data['content'], data['citation'])
+    pub = create_publication(data['title'], data['author'], data['link'], data['content'], data['publisher'], data['year'])
     return jsonify({"message":"Publication created successfully!"})
 
 @pub_views.route('/api/publications', methods=['PUT'])
@@ -137,7 +144,7 @@ def update_pub_action():
     data = request.json
     pub = get_pub_by_id(data['id'])
     if pub:
-        update_pub(data['id'], data['name'], data['author'], data['content'], data['citation'])
+        update_pub(data['id'], data['title'], data['author'], data['content'], data['link'], data['publisher'], data['year'])
         return jsonify({"message":"Publication updated successfully!"})
     return jsonify({"message":"Publication not found!"})
 

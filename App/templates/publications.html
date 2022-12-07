@@ -38,11 +38,11 @@
           <div class="card  h-100 border-light  bg-light shadow">
             <div class="card-body d-flex-row">
               <blockquote class="blockquote mb-4 pb-2">
-                <p class="mb-0 font-weight-bold">{{publication.title}}</p>
+                <p class="mb-0 font-weight-bold">{{publication.title | truncate(50, True, '...') }}</p>
                 <br>
                 <footer class="blockquote-footer">{{author.fname}} {{author.lname}}</footer>
               </blockquote>
-              <p class="card-text mb-5">{{publication.content}}</p>
+              <p class="card-text mb-5">{{publication.content | truncate(150, True, '...')}}</p>
               <div class="w-100 pb-1"></div>
               <div class="d-flex align-items-center align-self-end">
                 <div class="meta-author">

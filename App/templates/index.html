@@ -14,7 +14,7 @@
     <div class="p-5 mb-4 bg-light rounded-3 border">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">UWI Research Platform</h1>
-            <p class="col-md-8 fs-4">Be Bold. Face the world. Let your ideas shine. The UWI Reseach Platform exhibits the amazing ideas and thought processes that distinguishes us from everyone else. The passion and the drive that makes the UWI dedicated to all our partners, stakeholders, researchers and the minds that make this possible.</p>
+            <p class="col-md-8 fs-4">Be Bold. Face the world. Let your ideas shine. The UWI Reseach Platform exhibits the amazing ideas and thought processes that distinguishes us from everyone else. The passion and the drive that defines the UWI is dedicated to the hard work of all our partners, stakeholders, researchers and the minds that make this possible.</p>
             <button class="btn btn-warning btn-lg" type="button"><a class="text-dark text-decoration-none" href="/register">Publish With Us!</a></button>
         </div>
     </div>
@@ -48,7 +48,7 @@
             <div class="col-md-6">
                 <div class="row g-0 border border-3 rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
-                        <h3 class="mb-0"><a class="text-decoration-none" href="/publication/{{publication.pubId}}"><span class="title text-dark"> <span class="fa fa-book text-lg"></span> {{publication.title}}</span></a></h3>
+                        <h3 class="mb-0"><a class="text-decoration-none" href="/publication/{{publication.pubId}}"><span class="title text-dark"> <span class="fa fa-book text-lg"></span> {{publication.title | truncate(50, True, '...')}}</span></a></h3>
                         <br>
                         {% for author in authors  %}
                         {% for user in users %}
@@ -70,7 +70,7 @@
                             {% endfor %}
                             {% endfor %}
                         </p>
-                        <p class="card-text mb-auto">{{publication.content}}</p>
+                        <p class="card-text mb-auto">{{publication.content | truncate(150, True, '...')}}</p>
                     </div>
                 </div>
             </div>
