@@ -10,7 +10,7 @@ from App.controllers import (
     create_user,
     get_all_users_json,
     authenticate,
-    get_user,
+    get_user_by_id,
     get_user_by_username,
     update_user,
     create_publication,
