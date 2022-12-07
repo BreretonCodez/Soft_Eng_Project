@@ -42,13 +42,12 @@ class UserUnitTests(unittest.TestCase):
             "userId": None,
             "authorId": 1,
             "username": "Bobman",
-            "password": "bobpass",
             "author": {
                 "authorId": 1,
                 "fname": "Bobby",
                 "lname": "Franklin",
                 "email": "bfranklin@gmail.com",
-                "qualifications": None
+                "qualifications": None,
                 "institution": None,
                 "publications": [], 
             }
