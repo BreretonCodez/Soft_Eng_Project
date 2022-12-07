@@ -75,7 +75,6 @@ class PublicationUnitTests(unittest.TestCase):
     def test_new_publication(self):
         #(title, author, link, content, publisher, year)
         publication = Publication("Properly Using Git for Noobs", 1, "https://git.github.com", "Git is a powerful tool that everyone should know how to use.", "UWI", 2022)
-        publication.add_co_author(coauthor)
         assert publication.title=="Properly Using Git for Noobs" and publication.link=="https://git.github.com" and publication.content=="Git is a powerful tool that everyone should know how to use." and publication.publisher=="UWI" and publication.author==1 and publication.coauthors==[] and publication.year==2022
 
     def test_publication_toJSON(self):
