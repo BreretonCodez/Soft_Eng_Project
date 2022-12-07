@@ -36,9 +36,9 @@ class UserUnitTests(unittest.TestCase):
         assert user.username == "Bobman"
 
     def test_user_toJSON(self):
-        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com", "author":None)
+        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com", "")
         user_json = user.toJSON()
-        self.assertDictEqual(user_json, {"userId":None, "authorId":None, "username":"Bobman", "password":"bobpass", "author":""})
+        self.assertDictEqual(user_json, {"userId":None, "authorId":None, "username":"Bobman", "password":"bobpass", "author":None})
     
     def test_hashed_password(self):
         password = "bobpass"
