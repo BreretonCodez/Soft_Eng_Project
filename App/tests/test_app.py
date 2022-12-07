@@ -88,7 +88,7 @@ class PublicationUnitTests(unittest.TestCase):
         )
 
     def test_publication_toJSON(self):
-       author = Author("James", "Bond", "jbond@spy.net")
+        author = Author("James", "Bond", "jbond@spy.net")
         coauthor = Author("James", "Band", "jband@spy.net")
         publication = Publication("Intro to Computer Science", author, "comp.sci","Computer Science BSc","UWI",2022)
         publication.add_co_author(coauthor)
