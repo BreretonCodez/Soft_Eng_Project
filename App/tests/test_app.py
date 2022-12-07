@@ -96,10 +96,10 @@ class PublicationUnitTests(unittest.TestCase):
             "pubid": None,
             "title": "Intro to Computer Science",
             "author": [author.toJSON() for author in authors],
-            "coauthors": [coauthor.toJSON() for coauthor in coauthors]
-            "link": "comp.sci"
-            "content": "Computer Science BSc"
-            "publisher": "UWI"
+            "coauthors": [coauthor.toJSON() for coauthor in coauthors],
+            "link": "comp.sci",
+            "content": "Computer Science BSc",
+            "publisher": "UWI",
             "year": 2022
         })
 
