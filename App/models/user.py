@@ -12,10 +12,9 @@ class User(db.Model, UserMixin):
     author=db.relationship('Author')
 
     def __init__(self, username, password, fname, lname, email, author=None):
-        if author == None:
-            self.author = Author(fname=fname, lname=lname, email=email)
-        else:
-            self.author = author
+        if author:
+            return None
+        author = Author(fname=fname, lname=lname, email=email)
         db.session.add(author)
         db.session.commit()
         self.authorId = author.authorId
