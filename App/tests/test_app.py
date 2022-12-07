@@ -118,6 +118,7 @@ class UserIntegrationTests(unittest.TestCase):
         self.assertIsNotNone(User.query.filter_by(username="IamBond").first())
 
     def test_get_user_by_id(self):
+        create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
         user = get_user_by_id(1)
         self.assertIsNotNone(user)
 

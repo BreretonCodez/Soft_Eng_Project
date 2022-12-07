@@ -65,7 +65,7 @@
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                   <h5 class="card-title">{{pub.title}}</h5>
-                                  <p class="card-text">{{pub.content}}</p>
+                                  <p class="card-text">{{pub.content | truncate(150, True, '...')}}</p>
                                   <a href="/publication/{{pub.pubId}}" class="btn btn-primary">Read</a>
                                 </div>
                             </div>
