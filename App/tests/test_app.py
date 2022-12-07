@@ -105,11 +105,11 @@ def test_authenticate_valid():
 
 def test_authenticate_invalid_user():
     user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamNond", "jBond1998!") = None
+    assert authenticate("IamNond", "jBond1998!") == None
 
 def test_authenticate_invalid_pass():
     user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamBond", "jbond1998!") = None
+    assert authenticate("IamBond", "jbond1998!") == None
 
 class UserIntegrationTests(unittest.TestCase):
 
