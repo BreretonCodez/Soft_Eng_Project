@@ -18,7 +18,7 @@ from App.controllers import (
     create_author,
     create_publication,
     get_all_pubs_json,
-    get_author
+    get_author_by_id
 )
 
 from wsgi import app
@@ -32,13 +32,13 @@ LOGGER = logging.getLogger(__name__)
 class UserUnitTests(unittest.TestCase):
 
     def test_new_user(self):
-        user = User("bob", "bobpass")
-        assert user.username == "bob"
+        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com")
+        assert user.username == "Bobman"
 
     def test_user_toJSON(self):
-        user = User("bob", "bobpass")
+        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com")
         user_json = user.toJSON()
-        self.assertDictEqual(user_json, {"id":None, "username":"bob"})
+        self.assertDictEqual(user_json, {"id":None, "username":"Bobman", "password":"bobpass", "fname":"Bobby", "lname":"Franklin", "email":"bfranklin@gmail.com"})
     
     def test_hashed_password(self):
         password = "mypass"
