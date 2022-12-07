@@ -73,8 +73,8 @@ class AuthorUnitTests(unittest.TestCase):
 class PublicationUnitTests(unittest.TestCase):
     def test_new_publication(self):
         #(title, author, link, content, publisher, year)
-        author = Author("Bob Moog", "05/08/2001", "BSc. Computer Science")
-        coauthor = Author("Bob Dule", "06/09/2002", "BSc. Computer Engineering")
+        author = Author("James", "Bond", "jbond@spy.net")
+        coauthor = Author("James", "Band", "jband@spy.net")
         publication = Publication("Intro to Computer Science", author, "comp.sci","Computer Science BSc","UWI",2022)
         publication.add_co_author(coauthor)
         assert (
@@ -82,20 +82,20 @@ class PublicationUnitTests(unittest.TestCase):
             and publication.link=="comp.sci"
             and publication.content=="Computer Science BSc" 
             and publication.publisher=="UWI"
-            and publication.author==author 
+            and publication.author==author.author_id 
             and publication.coauthors==coauthor
         )
 
     def test_publication_toJSON(self):
-        author = Author("Bob Moog", "05/08/2001", "BSc. Computer Science")
-        coauthor = Author("Bob Dule", "06/09/2002", "BSc. Computer Engineering")
+       author = Author("James", "Bond", "jbond@spy.net")
+        coauthor = Author("James", "Band", "jband@spy.net")
         publication = Publication("Intro to Computer Science", author, "comp.sci","Computer Science BSc","UWI",2022)
         publication.add_co_author(coauthor)
         publication_json = publication.toJSON()
         self.assertDictEqual(publication_json, {
             "pubid": None,
             "title": "Intro to Computer Science",
-            "author": [author.toJSON() for author in authors],
+            "author": author.author_id,
             "coauthors": [coauthor.toJSON() for coauthor in coauthors],
             "link": "comp.sci",
             "content": "Computer Science BSc",
