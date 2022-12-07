@@ -12,6 +12,7 @@ from App.controllers import (
     authenticate,
     get_user_by_id,
     get_user_by_username,
+    get_user_by_author,
     update_user,
     create_publication,
     get_all_authors_json,
@@ -97,4 +98,36 @@ def empty_db():
     create_db(app)
     yield app.test_client()
     os.unlink(os.getcwd()+'/App/test.db')
+
+def test_authenticate_valid():
+    user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
+    assert authenticate("IamBond", "jBond1998!") != None
+
+def test_authenticate_invalid_user():
+    user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
+    assert authenticate("IamNond", "jBond1998!") != None
+
+def test_authenticate_invalid_pass():
+    user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
+    assert authenticate("IamBond", "jbond1998!") != None
+
+class UserIntegrationTests(unittest.TestCase):
+
+    def test_create_user(self):
+        user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
+        self.assertIsNotNone(User.query.filter_by(username="IamBond").first())
+
+    def test_get_user_by_id(self):
+        user = get_user_by_id(1)
+        self.assertIsNotNone(user)
+
+    def test_get_user_by_username(self):
+        user = get_user_by_username("IamBond")
+        self.assertIsNotNone(user)
+
+    def test_get_user_by_author(self):
+        author = get_author_by_id(1)
+        user = get_user_by_author(author.authorId)
+        self.assertEquals("IamBond", user.username)
+
 
