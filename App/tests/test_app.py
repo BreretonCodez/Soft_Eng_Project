@@ -74,13 +74,18 @@ class PublicationUnitTests(unittest.TestCase):
     def test_new_publication(self):
         authors = []
         coauthors = []
+        #(title, author, link, content, publisher, year)
         author = Author("Bob Moog", "05/08/2001", "BSc. Computer Science")
         authors.append(author)
         coauthor = Author("Bob Dule", "06/09/2002", "BSc. Computer Engineering")
         coauthors.append(coauthor)
-        publication = Publication("Intro to Computer Science", authors, coauthors)
+        publication = Publication("Intro to Computer Science", authors, "comp.sci","Computer Science BSc","UWI",2022)
+        publication.add_co_author(coauthors)
         assert (
-            publication.title=="Intro to Computer Science" 
+            publication.title=="Intro to Computer Science"
+            and publication.link=="comp.sci"
+            and publication.content=="Computer Science BSc" 
+            and publication.publisher=="UWI"
             and publication.authors==authors 
             and publication.coauthors==coauthors
         )
