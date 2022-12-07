@@ -105,11 +105,11 @@ def test_authenticate_valid():
 
 def test_authenticate_invalid_user():
     user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamNond", "jBond1998!") != None
+    assert authenticate("IamNond", "jBond1998!") = None
 
 def test_authenticate_invalid_pass():
     user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamBond", "jbond1998!") != None
+    assert authenticate("IamBond", "jbond1998!") = None
 
 class UserIntegrationTests(unittest.TestCase):
 
@@ -130,4 +130,15 @@ class UserIntegrationTests(unittest.TestCase):
         user = get_user_by_author(author.authorId)
         self.assertEquals("IamBond", user.username)
 
+class AuthorIntegrationTests(unittest.TestCase):
 
+    def test_create_author(self):
+        author = create_author("James", "Bond", "jbond@spy.net")
+        self.assertIsNotNone(Author.query.filter_by(email="jbond@spy.net").first())
+
+
+class PublicationIntegrationTests(unittest.TestCase):
+
+    def test_create_publication(self):
+        publication = create_publication("Properly Using Git for Noobs", 1, "https://git.github.com", "Git is a powerful tool that everyone should know how to use.", "UWI", 2022)
+        self.assertIsNotNone(Publication.query.filter_by(title="Properly Using Git for Noobs").first())
