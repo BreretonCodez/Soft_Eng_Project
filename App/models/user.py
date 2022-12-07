@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
             'userId': self.userId,
             'authorId': self.authorId,
             'username': self.username,
-            'author': author.toJSON(),
+            'author': self.author.toJSON(),
         }
 
     def __repr__(self):
