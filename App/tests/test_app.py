@@ -78,18 +78,15 @@ class PublicationUnitTests(unittest.TestCase):
         assert publication.title=="Properly Using Git for Noobs" and publication.link=="https://git.github.com" and publication.content=="Git is a powerful tool that everyone should know how to use." and publication.publisher=="UWI" and publication.author==1 and publication.coauthors==[] and publication.year==2022
 
     def test_publication_toJSON(self):
-        author = Author("James", "Bond", "jbond@spy.net")
-        coauthor = Author("James", "Band", "jband@spy.net")
-        publication = Publication("Intro to Computer Science", author, "comp.sci","Computer Science BSc","UWI",2022)
-        publication.add_co_author(coauthor)
-        publication_json = publication.toJSON()
+        publication = Publication("Properly Using Git for Noobs", 1, "https://git.github.com", "Git is a powerful tool that everyone should know how to use.", "UWI", 2022)
+        pub_json = publication.toJSON()
         self.assertDictEqual(publication_json, {
             "pubid": None,
-            "title": "Intro to Computer Science",
-            "author": author.authorId,
-            "coauthors": [coauthor.toJSON() for coauthor in coauthors],
-            "link": "comp.sci",
-            "content": "Computer Science BSc",
+            "title": "Properly Using Git for Noobs",
+            "author": 1,
+            "coauthors": [],
+            "link": "https://git.github.com",
+            "content": "Git is a powerful tool that everyone should know how to use.",
             "publisher": "UWI",
             "year": 2022
         })
