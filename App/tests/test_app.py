@@ -36,7 +36,8 @@ class UserUnitTests(unittest.TestCase):
         assert user.username == "Bobman"
 
     def test_user_toJSON(self):
-        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com")
+        author = Author("Bobby", "Franklin", "bfranklin@gmail.com")
+        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com", author)
         user_json = user.toJSON()
         self.assertDictEqual(user_json, {
             "userId": None,
