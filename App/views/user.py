@@ -136,7 +136,9 @@ def get_all_users_action():
 def get_user_action():
     data = request.json
     user = get_user_by_id(data['id'])
-    return jsonify(user)
+    if user:
+        return user.toJSON
+    return jsonify({"message":"User not found!"})
 
 @user_views.route('/api/users', methods=['POST'])
 def create_user_action():
