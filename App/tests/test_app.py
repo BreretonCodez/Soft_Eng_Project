@@ -81,7 +81,7 @@ class PublicationUnitTests(unittest.TestCase):
         publication = Publication("Properly Using Git for Noobs", 1, "https://git.github.com", "Git is a powerful tool that everyone should know how to use.", "UWI", 2022)
         pub_json = publication.toJSON()
         self.assertDictEqual(pub_json, {
-            "pubid": None,
+            "pubId": None,
             "title": "Properly Using Git for Noobs",
             "author": 1,
             "coauthors": [],
