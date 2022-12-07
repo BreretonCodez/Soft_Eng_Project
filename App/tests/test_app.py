@@ -41,30 +41,33 @@ class UserUnitTests(unittest.TestCase):
         self.assertDictEqual(user_json, {"id":None, "username":"Bobman", "password":"bobpass", "fname":"Bobby", "lname":"Franklin", "email":"bfranklin@gmail.com"})
     
     def test_hashed_password(self):
-        password = "mypass"
+        password = "bobpass"
         hashed = generate_password_hash(password, method='sha256')
-        user = User("bob", password)
+        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com")
         assert user.password != password
 
     def test_check_password(self):
-        password = "mypass"
-        user = User("bob", password)
+        password = "bobpass"
+        user = User("Bobman", "bobpass", "Bobby", "Franklin", "bfranklin@gmail.com")
         assert user.check_password(password)
 
 class AuthorUnitTests(unittest.TestCase):
 
     def test_new_author(self):
-        author = Author("James", "Bond", "jamesbond", "jbond@spy.net", "jbondisanagent!")
-        assert author.fname == "James" and author.lname == "Bond" and author.username == "jamesbond" and author.email == "jbond@spy.net"
+        author = Author("James", "Bond", "jbond@spy.net")
+        assert author.fname == "James" and author.lname == "Bond" and author.email == "jbond@spy.net"
 
     def test_author_toJSON(self):
-        author = Author("Bob Moog", "05/08/2001", "BSc. Computer Science")
+        author =  Author("James", "Bond", "jbond@spy.net")
         author_json = author.toJSON()
         self.assertDictEqual(author_json, {
-            "id": None,
-            "name": "Bob Moog",
-            "dob": datetime.strptime("05/08/2001", "%d/%m/%Y"),
-            "qualifications": "BSc. Computer Science"
+            "authorId": None,
+            "fname": "James",
+            "lname": "Bond",
+            "email": "jbond@spy.net",
+            "qualifications": None,
+            "institution": None,
+            "publications": None
         })
 
 class PublicationUnitTests(unittest.TestCase):
