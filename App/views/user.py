@@ -134,7 +134,8 @@ def get_all_users_action():
 
 @user_views.route('/api/users/id', methods=['GET'])
 def get_user_action():
-    user = get_user_by_id(id)
+    data = request.json
+    user = get_user_by_id(data['id'])
     return jsonify(user)
 
 @user_views.route('/api/users', methods=['POST'])
