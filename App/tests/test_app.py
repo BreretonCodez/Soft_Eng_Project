@@ -102,14 +102,14 @@ def empty_db():
 
 class UserIntegrationTests(unittest.TestCase):
 
-    def test_authenticate_valid():
+    def test_authenticate_valid(self):
         user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
         assert authenticate("IamBond", "jBond1998!") != None
 
-    def test_authenticate_invalid_user():
+    def test_authenticate_invalid_user(self):
         assert authenticate("IamNond", "jBond1998!") == None
 
-    def test_authenticate_invalid_pass():
+    def test_authenticate_invalid_pass(self):
         assert authenticate("IamBond", "jbond1998!") == None
 
     def test_create_user(self):
