@@ -137,7 +137,7 @@ class UserIntegrationTests(unittest.TestCase):
         self.assertIsNotNone(user)
 
     def test_get_user_by_author(self):
-        author = get_author_by_id(2)
+        author = get_author_by_id(1)
         user = get_user_by_author(author.authorId)
         self.assertEquals("frankH", user.username)
 
