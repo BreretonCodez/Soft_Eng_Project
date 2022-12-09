@@ -4,9 +4,27 @@
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="UWI Research Platform">
-    <meta name="author" content="Micah Brereton and D-DOS Software">
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Home · UWI Research Platform">
+    <meta name="description" content="UWI Research Platform, developed by D-DOS Software was made as a publications platform for the The University of the West Indies. Software Engineering 2 Semester Project 2022.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://uwi-research.herokuapp.com/">
+    <meta property="og:title" content="Home · UWI Research Platform">
+    <meta property="og:description" content="UWI Research Platform, developed by D-DOS Software was made as a publications platform for the The University of the West Indies. Software Engineering 2 Semester Project 2022.">
+    <meta property="og:image" content="https://micahb.icu/src/img/uwi-pub.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://uwi-research.herokuapp.com/">
+    <meta property="twitter:title" content="Home · UWI Research Platform">
+    <meta property="twitter:description" content="UWI Research Platform, developed by D-DOS Software was made as a publications platform for the The University of the West Indies. Software Engineering 2 Semester Project 2022.">
+    <meta property="twitter:image" content="https://micahb.icu/src/img/uwi-pub.png">
+
     <title>{% block title %}{% endblock %}</title>
+    
     <link href="{{ url_for('static', filename='/dist/css/bootstrap.min.css') }}" rel="stylesheet"> 
     <link href="{{ url_for('static', filename='frontend.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='/plugins/fontawesome-free/css/all.min.css') }}">
