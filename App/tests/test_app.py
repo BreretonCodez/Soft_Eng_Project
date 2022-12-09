@@ -100,18 +100,6 @@ def empty_db():
     yield app.test_client()
     os.unlink(os.getcwd()+'/App/test.db')
 
-
-class AuthorIntegrationTests(unittest.TestCase):
-
-    def test_create_author(self):
-        author = create_author("James", "Bond", "jbond@spy.net")
-        self.assertIsNotNone(Author.query.filter_by(email="jbond@spy.net").first())
-
-    def test_get_author_by_id(self):
-        author = get_author_by_id(1)
-        self.assertIsNotNone(author)
-
-
 class UserIntegrationTests(unittest.TestCase):
 
     def test_authenticate_valid(self):
@@ -136,10 +124,15 @@ class UserIntegrationTests(unittest.TestCase):
         user = get_user_by_username("frankH")
         self.assertIsNotNone(user)
 
-    def test_get_user_by_author(self):
+class AuthorIntegrationTests(unittest.TestCase):
+
+    def test_create_author(self):
+        author = create_author("James", "Bond", "jbond@spy.net")
+        self.assertIsNotNone(Author.query.filter_by(email="jbond@spy.net").first())
+
+    def test_get_author_by_id(self):
         author = get_author_by_id(1)
-        user = get_user_by_author(author.authorId)
-        self.assertEquals("frankH", user.username)
+        self.assertIsNotNone(author)
 
 
 class PublicationIntegrationTests(unittest.TestCase):
