@@ -100,37 +100,34 @@ def empty_db():
     yield app.test_client()
     os.unlink(os.getcwd()+'/App/test.db')
 
-def test_authenticate_valid():
-    user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamBond", "jBond1998!") != None
-
-def test_authenticate_invalid_user():
-    user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamNond", "jBond1998!") == None
-
-def test_authenticate_invalid_pass():
-    user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-    assert authenticate("IamBond", "jbond1998!") == None
-
 class UserIntegrationTests(unittest.TestCase):
 
-    def test_create_user(self):
+    def test_authenticate_valid():
         user = create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
-        self.assertIsNotNone(User.query.filter_by(username="IamBond").first())
+        assert authenticate("IamBond", "jBond1998!") != None
+
+    def test_authenticate_invalid_user():
+        assert authenticate("IamNond", "jBond1998!") == None
+
+    def test_authenticate_invalid_pass():
+        assert authenticate("IamBond", "jbond1998!") == None
+
+    def test_create_user(self):
+        user = create_user("frankH", "Hardy1998!", "Frank", "Hardy", "frankh@hotmail.com")
+        self.assertIsNotNone(User.query.filter_by(username="frankH").first())
 
     def test_get_user_by_id(self):
-        create_user("IamBond", "jBond1998!", "James", "Bond", "jbond@spy.net")
         user = get_user_by_id(1)
         self.assertIsNotNone(user)
 
     def test_get_user_by_username(self):
-        user = get_user_by_username("IamBond")
+        user = get_user_by_username("frankH")
         self.assertIsNotNone(user)
 
     def test_get_user_by_author(self):
-        author = get_author_by_id(1)
+        author = get_author_by_id(2)
         user = get_user_by_author(author.authorId)
-        self.assertEquals("IamBond", user.username)
+        self.assertEquals("frankH", user.username)
 
 class AuthorIntegrationTests(unittest.TestCase):
 
