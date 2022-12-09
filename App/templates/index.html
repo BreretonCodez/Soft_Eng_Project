@@ -47,7 +47,7 @@
             {% for publication in publications[-6:] | reverse %}
             <div class="col-md-6">
                 <div class="row g-0 border border-3 rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
+                    <div class="col h-100 p-4 d-flex flex-column position-static">
                         <h3 class="mb-0"><a class="text-decoration-none" href="/publication/{{publication.pubId}}"><span class="title text-dark"> <span class="fa fa-book text-lg"></span> {{publication.title | truncate(50, True, '...')}}</span></a></h3>
                         <br>
                         {% for author in authors  %}
@@ -78,78 +78,5 @@
         </div>
     </div>
 </div>
-
-    <!-- <form class="row">
-        <div class="row">
-            <div class="col s12 m8">
-                <div class="card-panel">
-                    <div class="input-field col s9">
-                        <i class="material-icons prefix">search</i>
-                        
-                        <textarea id="icon_prefix2" name="search"   class="materialize-textarea">{% if search %} {{search}} {% endif %}</textarea>
-                        <label for="icon_prefix2">Search Publication...</label>
-                    </div>
-                    <div class="input-field s3">
-                    <button class="btn waves-effect waves-light" type="submit">Search
-                        <i class="material-icons right">search</i>
-                    </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            
-        </div>
-    </form>
-
-    <main style="padding: 1em" class="row">
-        <section class="col s12 m8">
-            <h1 class="center">Publications</h1>
-            <section class="row" style="overflow-y: scroll; height:82vh">
-
-                {% for publication in publications %}
-                <ul class="collection hoverable">
-                    <li class="collection-item avatar">
-                        <i class="material-icons circle">folder</i>
-                        <a href="/publication/{{publication.pubId}}"><span class="title">{{publication.title}}</span></a>
-                        <p>
-                            {% for author in authors  %}
-                            {% for user in users %}
-                            {% if author.authorId == publication.author %}
-                            {% if author.authorId == user.authorId %}
-
-                                Author: <a href="/author/@{{user.username}}">{{author.fname}} {{author.lname}}</a> 
-
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
-                            {% endfor %}
-                            <br>
-                            Co-Authors:
-                            {% for coauthor in publication.coauthors %}
-                            <a href="/author/{{coauthor.authorId}}">{{coauthor.fname}} {{coauthor.lname}}</a>, 
-                            {% endfor %}
-                            <br> 
-                            {{publication.content}} 
-                        </p>
-                    </li>
-                </ul>
-                {% endfor %}
-
-            </section>
-        </section>
-        <section class="col s12 m4">
-            <h1 class="center">Authors</h1>
-            <section class="row" style="overflow-y: scroll; height:82vh">
-
-                <ul class="collection">
-                    {% for user in users %}
-                    <a href="/author/@{{user.username}}" class="collection-item indigo-text text-darken-4">{{user.author.fname}} {{user.author.lname}}</a>
-                    {% endfor %}
-                </ul>
-
-            </section>
-        </section>
-    </main> -->
       
 {% endblock %}
