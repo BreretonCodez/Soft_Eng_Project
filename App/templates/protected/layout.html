@@ -76,23 +76,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </nav>
   <!-- /.navbar -->
 
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <div class="container">
-        <div class="row">
-          <div class="col"></div>
-          <div class="col-4">
-            <ul class="alert alert-info">
-              {% for message in messages %}
-                <p indigo-text text-darken-4>{{ message }}</p>
-              {% endfor %}
-              </ul>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-  {% endwith %}
-
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -128,6 +111,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <nav class="white black-text" style="padding: 10px">
+        <div class="alert alert-info" role="alert">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+          <button type="button" class="btn-close btn-close-white pe px-2" aria-label="Close"></button>
+        </div>
+      </nav>
+      {% endif %}
+      {% endwith %}
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -182,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      Developed by D-DOS Software | v1.0.3
+      Developed by D-DOS Software | v1.0.4
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2022 <a href="/">UWI Publications</a>.</strong> All rights reserved.

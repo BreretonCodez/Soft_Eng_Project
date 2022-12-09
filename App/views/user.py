@@ -28,6 +28,7 @@ def login():
         data = request.form
         usern = data['username']
         passw = data['password']
+        rem = data['remember']
 
         if not usern or not passw:
             flash('Please enter both an username and password')
@@ -37,7 +38,7 @@ def login():
 
         if user: # check credentials
             flash('Logged in successfully.') # send message to next page
-            log_in_user(user, True) # login the user
+            log_in_user(user, rem) # login the user
             return redirect("/profile/@" + str(usern))
 
         else:

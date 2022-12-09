@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, redirect, url_for, flash
 from flask_login import login_required, current_user
 from flask_jwt import jwt_required
+from datetime import datetime
 
 
 from App.controllers import (
@@ -23,6 +24,18 @@ from App.controllers import (
     delete_publication,
     search_pub,
 )
+
+def check_year(year):
+    y1 = len(year)
+    amt = 4
+    if y1 == amt:
+        old = 1900
+        date = datetime.now()
+        curr = date.year
+        print(curr)
+        if int(year) > old and int(year) <= int(curr):
+            return year
+    return None
 
 pub_views = Blueprint('pub_views', __name__, template_folder='../templates')
 
@@ -57,7 +70,18 @@ def edit_pub(id):
     if "update-pub" in data and request.method == 'POST':
         if not data['title'] or not data['content'] or not data['link'] or not data['publisher'] or not data['year']:
             flash('Please fill all data fields!')
-            redirect(url_for('.edit_pub', id=id))
+            return redirect(url_for('.edit_pub', id=id))
+
+        year = check_year(data['year'])
+
+        if year == None:
+            flash('Please check your publication year!')
+            return redirect(url_for('.edit_pub', id=id))
+
+        if year == None:
+            flash('Please check your publication year!')
+            return render_template('/protected/add-pub.html', user=user, author=author)
+
         update_pub(id, data['title'], user.authorId, data['content'], data['link'], data['publisher'], data['year'])
 
     if "add-co" in data and request.method == 'POST':
@@ -65,9 +89,9 @@ def edit_pub(id):
         coa = get_author_by_email(email)
         if not coa:
             flash('Invalid Co-Author!')
-            redirect(url_for('.edit_pub', id=id))
-        add_pub_co_author(id, coa.authorId)
-        flash('Co-Author added successfully!')
+        else:
+            add_pub_co_author(id, coa.authorId)
+            flash('Co-Author added successfully!')
 
     if "del-co" in data and request.method == 'POST':
         email = data['email']
@@ -75,14 +99,14 @@ def edit_pub(id):
             coa = get_author_by_email(email)
             if not coa:
                 flash('Invalid Co-Author!')
-                redirect(url_for('.edit_pub', id=id))
-            del_pub_co_author(id, coa.authorId)
-            flash('Co-Author added successfully!')
+            else:
+                del_pub_co_author(id, coa.authorId)
+                flash('Co-Author removed successfully!')
             
     if "del-pub" in data and request.method == 'POST':
         delete_publication(pub.pubId)
         flash('Publication deleted successfully!')
-        redirect(url_for('.get_all_pubs_backend', username=user.username))
+        return redirect(url_for('.get_all_pubs_backend', username=user.username))
 
     author = get_author_by_id(pub.author)
     cas = pub.coauthors
@@ -106,14 +130,13 @@ def add_pub_backend(username):
         if not data['title'] or not data['link'] or not data['content'] or not data['publisher'] or not data['year']:
             flash('Please enter data for all fields!')
 
-        if data['year']:
-            year = data['year']
-            max = 4
-            if len(year) != max:
-                flash('Please check your publication year!')
-                return render_template('/protected/add-pub.html', user=user, author=author)
+        year = check_year(data['year'])
 
-        create_publication(data['title'], user.authorId, data['link'], data['content'], data['publisher'], data['year'])
+        if year == None:
+            flash('Please check your publication year!')
+            return render_template('/protected/add-pub.html', user=user, author=author)
+
+        create_publication(data['title'], user.authorId, data['link'], data['content'], data['publisher'], year)
         flash('Publication added successfully!')
         return redirect(url_for('.get_all_pubs_backend', username=user.username))
 

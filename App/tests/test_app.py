@@ -7,19 +7,20 @@ from App.main import create_app
 from App.database import create_db
 from App.models import User, Author, Publication
 from App.controllers import (
-    create_user,
-    get_all_users_json,
     authenticate,
+    create_user,
+    update_user,
     get_user_by_id,
     get_user_by_username,
     get_user_by_author,
-    update_user,
+    get_all_users,
+    get_all_users_json,
     create_publication,
-    get_all_authors_json,
-    create_author,
-    create_publication,
+    get_pub_by_id,
     get_all_pubs_json,
-    get_author_by_id
+    create_author,
+    get_author_by_id,
+    get_all_authors_json,
 )
 
 from wsgi import app
@@ -137,9 +138,17 @@ class AuthorIntegrationTests(unittest.TestCase):
         author = create_author("James", "Bond", "jbond@spy.net")
         self.assertIsNotNone(Author.query.filter_by(email="jbond@spy.net").first())
 
+    def test_get_author_by_id(self):
+        author = get_author_by_id(1)
+        self.assertIsNotNone(author)
+
 
 class PublicationIntegrationTests(unittest.TestCase):
 
     def test_create_publication(self):
         publication = create_publication("Properly Using Git for Noobs", 1, "https://git.github.com", "Git is a powerful tool that everyone should know how to use.", "UWI", 2022)
         self.assertIsNotNone(Publication.query.filter_by(title="Properly Using Git for Noobs").first())
+
+    def test_get_pub_by_id(self):
+        pub = get_pub_by_id(1)
+        self.assertIsNotNone(pub)
