@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, session, redirect, flash, url_for
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, session, redirect, flash, url_for, abort
 from flask_login import login_required, current_user
 from flask_jwt import jwt_required
 # for exceptions
@@ -28,7 +28,6 @@ def login():
         data = request.form
         usern = data['username']
         passw = data['password']
-        rem = data['remember']
 
         if not usern or not passw:
             flash('Please enter both an username and password')
@@ -38,7 +37,7 @@ def login():
 
         if user: # check credentials
             flash('Logged in successfully.') # send message to next page
-            log_in_user(user, rem) # login the user
+            log_in_user(user, True) # login the user
             return redirect("/profile/@" + str(usern))
 
         else:
@@ -109,22 +108,17 @@ def login_u():
 
 # JINJA ROUTES
 
-@user_views.route('/users', methods=['GET'])
-def get_user_page():
-    users = get_all_users()
-    return render_template('users.html', users=users)
-
-@user_views.route('/static/users')
-def static_user_page():
-  return send_from_directory('static', 'static-user.html')
-
 @user_views.route('/profile/@<username>', methods=['GET'])
 @login_required
 def user_profile(username):
-    user = get_user_by_username(username)
-    author = get_author_by_id(user.authorId)
-    publications = get_pubs_by_author(user.authorId)
-    return render_template('/protected/profile.html', user=user, author=author, publications=publications)
+    user = current_user.username
+    if user != username:
+        return abort(401)
+    else:
+        user = get_user_by_username(username)
+        author = get_author_by_id(user.authorId)
+        publications = get_pubs_by_author(user.authorId)
+        return render_template('/protected/profile.html', user=user, author=author, publications=publications)
 
 # API ROUTES
 
