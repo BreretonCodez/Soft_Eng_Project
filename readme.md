@@ -1,7 +1,7 @@
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/dee-dos/COMP3613_Final_Project)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/BreretonCodez/Soft_Eng_Project)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-![Tests](https://github.com/dee-dos/COMP3613_Final_Project/actions/workflows/dev.yml/badge.svg)
+![Tests](https://github.com/BreretonCodez/Soft_Eng_Project/actions/workflows/dev.yml/badge.svg)
 
 # Flask MVC Template
 A template for flask applications structured in the Model View Controller pattern [Demo](https://dcit-flaskmvc.herokuapp.com/)
